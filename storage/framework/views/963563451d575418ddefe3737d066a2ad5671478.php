@@ -1,0 +1,1 @@
+<?php echo e($customer->id); ?><?php /**PATH C:\Users\ntnng\Desktop\nhanhao\resources\views/web/mail-noti.blade.php ENDPATH**/ ?>
