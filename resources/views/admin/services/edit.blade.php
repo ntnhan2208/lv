@@ -35,6 +35,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label>Đơn giá</label>
+                                    <select name="unit_price"
+                                            class="custom-select custom-select-sm form-control form-control-sm">
+                                        @foreach(config('system.unit_price') as $k => $v)
+                                            <option value="{{ $k }}" {{ old('unit_price') == $k ? 'selected':''}}>{{ $v }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label>{{ trans('site.service.is_enabled') }}</label>
                                     <select name="is_enabled"
                                             class="custom-select custom-select-sm form-control form-control-sm">

@@ -18,7 +18,7 @@ class CreateRoomsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->integer('amount');
-            $table->integer('acreage');
+            $table->float('acreage');
             $table->decimal('price', 9, 0);
             $table->boolean('is_enabled')->default(true);
             $table->string('image')->nullable();

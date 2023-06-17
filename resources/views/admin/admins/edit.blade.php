@@ -91,20 +91,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>{{ trans('site.admin.role') }}  </label>
-                                    <div class="input-group">
-                                        <select name="role"
-                                                class="custom-select custom-select-sm form-control form-control-sm">
-                                            @foreach(config('system.role') as $k => $v)
-                                                <option value="{{ $k }}" @if($admin->role==$v)
-                                                selected @endif>{{ $v }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary px-4 mb-3 mt-2"><i class="fas fa-save"></i>
                             {{trans('site.button_update') }} </button>

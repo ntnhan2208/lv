@@ -94,6 +94,14 @@
                                 </div>
                             </div>
                             <div class="col-6">
+                                <div class="form-group">
+                                    <label>Phần trăm hoa hồng</label>
+                                    <div class="input-group">
+                                        <input type="text" id="example-input1-group1" name="commission"
+                                               class="form-control"
+                                               value="{{old('commission')}}">
+                                    </div>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary px-4 mb-3 mt-2">
                                 <i class="mdi mdi-plus-circle-outline mr-2"></i>

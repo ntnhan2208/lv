@@ -19,7 +19,7 @@ class Service extends Model
         return $this->belongsToMany(Booking::class);
     }
 
-    protected $fillable = ['name', 'description', 'price', 'is_enabled', 'admin_id'];
+    protected $fillable = ['name', 'description', 'price', 'is_enabled', 'admin_id', 'unit_price'];
 
 
 }

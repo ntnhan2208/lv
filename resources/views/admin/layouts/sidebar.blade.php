@@ -1,17 +1,5 @@
 <div class="left-sidenav">
     <ul class="metismenu left-sidenav-menu">
-        {{--        <li class="{{ (request()->is('admin/home*')) ? 'mm-active' : '' }}">--}}
-        {{--            <a href="{{ route('dashboard') }}">--}}
-        {{--                <i class="ti-dashboard"></i>--}}
-        {{--                <span>{{ trans('site.dashboard') }}</span>--}}
-        {{--            </a>--}}
-        {{--        </li>--}}
-{{--        <li class="{{ (request()->is('admin/admins*')) ? 'mm-active' : '' }}">--}}
-{{--            <a href="{{ route('admins.index') }}">--}}
-{{--                <i class="ti-lock"></i>--}}
-{{--                <span>{{ trans('site.admin.title') }}</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
         <li>
             <a href="javascript: void(0);"><i
                         class="ti-layout-column4-alt"></i><span>{{ trans('site.room.title') }}</span><span
@@ -47,10 +35,33 @@
                 <span>{{ trans('site.customer.title') }}</span>
             </a>
         </li>
-        <li class="{{ (request()->is('admin/booking*')) ? 'mm-active' : '' }}">
-            <a href="{{ route('bookings.index') }}">
-                <i class="ti-write"></i>
-                <span>{{ trans('site.booking.title') }}</span>
+        <li class="{{ (request()->is('admin/appointment*')) ? 'mm-active' : '' }}">
+            <a href="{{ route('appointments.index') }}">
+                <i class="ti-calendar"></i>
+                <span>Quản lý lịch hẹn</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript: void(0);"><i
+                        class="ti-bookmark-alt"></i><span>Quản lý hợp đồng - cọc</span><span
+                        class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+            <ul class="nav-second-level" aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('bookings.index') }}">
+                        <i class="ti-control-record"></i>Quản lý hợp đồng
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('deposits.index') }}">
+                        <i class="ti-control-record"></i>Quản lý tiền cọc
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="{{ (request()->is('admin/room-booked')) ? 'mm-active' : '' }}">
+            <a href="{{ route('room-booked') }}">
+                <i class="ti-check-box"></i>
+                <span>Căn hộ đang cho thuê</span>
             </a>
         </li>
     </ul>

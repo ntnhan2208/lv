@@ -19,9 +19,8 @@ class CreateCustomersTable extends Migration
             $table->string('email');
             $table->string('personal_id')->nullable();
             $table->string('phone');
-//            $table->integer('admin_id')->unsigned();
-//            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
             $table->foreignId('admin_id')->unsigned()->nullable()->constrained('admins');
+            $table->foreignId('room_id')->unsigned()->nullable()->constrained('rooms');
             $table->timestamps();
         });
     }

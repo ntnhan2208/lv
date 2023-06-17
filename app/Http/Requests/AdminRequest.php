@@ -24,7 +24,7 @@ class AdminRequest extends FormRequest
                     'name' => 'required',
                     'email' => ['required','email', Rule::unique('admins')],
                     'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10','max:10', Rule::unique('admins')],
-                    'personal_id' => ['required','regex:/([0-9]{9})\b/','max:12', Rule::unique('admins')],
+                    'personal_id' => ['required','min:9','max:12', Rule::unique('admins')],
                     'password' => 'required',
                 ];
             case 'PATCH':
@@ -33,7 +33,7 @@ class AdminRequest extends FormRequest
                     'name' => 'required',
                     'email' => ['required', 'email', Rule::unique('admins')->ignore($this->admin,'id')],
                     'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10','max:10', Rule::unique('admins')->ignore($this->admin,'id')],
-                    'personal_id' => ['required','regex:/([0-9]{12})\b/','max:12', Rule::unique('admins')->ignore($this->admin,'id')],
+                    'personal_id' => ['required','min:9','max:12', Rule::unique('admins')->ignore($this->admin,'id')],
                 ];
         }
     }

@@ -120,7 +120,7 @@
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group" name="price-cal">
                                             <label>Số tền cọc trước</label>
                                             <div class="input-group">
@@ -128,6 +128,18 @@
                                                        readonly>
                                                 <input class="form-control" name="total_deposits" type="text"
                                                        id="result3" value="<?php echo e($booking->total_deposits); ?>" readonly hidden>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group" name="price-cal">
+                                            <label>Số tền cần cọc đã trả</label>
+                                            <div class="input-group">
+                                                <input class="form-control" type="text" id="result4"
+                                                       readonly>
+                                                <input class="form-control" name="deposits" type="text"
+                                                       id="result-before" value="<?php echo e($booking->deposits); ?>"
+                                                       readonly hidden>
                                             </div>
                                         </div>
                                     </div>
@@ -191,7 +203,9 @@
             var price0 = $("#result1").val();
             var price1 = $("#result3").val();
             var price2 = $("#total_price2").val();
+            var price3 = $("#result-before").val();
 
+            $("#result4").val(numberToCurrency(price3));
             $("#result0").val(numberToCurrency(price0));
             $("#result2").val(numberToCurrency(price1));
             $("#total_price").val(numberToCurrency(price2));

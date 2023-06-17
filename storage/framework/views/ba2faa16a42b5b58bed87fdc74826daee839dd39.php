@@ -1,17 +1,5 @@
 <div class="left-sidenav">
     <ul class="metismenu left-sidenav-menu">
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
         <li>
             <a href="javascript: void(0);"><i
                         class="ti-layout-column4-alt"></i><span><?php echo e(trans('site.room.title')); ?></span><span
@@ -49,10 +37,33 @@
                 <span><?php echo e(trans('site.customer.title')); ?></span>
             </a>
         </li>
-        <li class="<?php echo e((request()->is('admin/booking*')) ? 'mm-active' : ''); ?>">
-            <a href="<?php echo e(route('bookings.index')); ?>">
-                <i class="ti-write"></i>
-                <span><?php echo e(trans('site.booking.title')); ?></span>
+        <li class="<?php echo e((request()->is('admin/appointment*')) ? 'mm-active' : ''); ?>">
+            <a href="<?php echo e(route('appointments.index')); ?>">
+                <i class="ti-calendar"></i>
+                <span>Quản lý lịch hẹn</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript: void(0);"><i
+                        class="ti-bookmark-alt"></i><span>Quản lý hợp đồng - cọc</span><span
+                        class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+            <ul class="nav-second-level" aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo e(route('bookings.index')); ?>">
+                        <i class="ti-control-record"></i>Quản lý hợp đồng
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo e(route('deposits.index')); ?>">
+                        <i class="ti-control-record"></i>Quản lý tiền cọc
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="<?php echo e((request()->is('admin/room-booked')) ? 'mm-active' : ''); ?>">
+            <a href="<?php echo e(route('room-booked')); ?>">
+                <i class="ti-check-box"></i>
+                <span>Căn hộ đang cho thuê</span>
             </a>
         </li>
     </ul>

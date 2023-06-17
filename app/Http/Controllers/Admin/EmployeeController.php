@@ -89,6 +89,7 @@ class EmployeeController extends BaseAdminController
         $employee->personal_id = $request->input('personal_id');
         $employee->gender = $request->input('gender');
         $employee->phone = $request->input('phone');
+        $employee->commission = $request->input('commission');
         $employee->image = $request->input('image');
         $employee->admin_id = Auth::user()->id;
         $employee->save();

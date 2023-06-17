@@ -33,7 +33,7 @@
                                             {{ $service->name }}
                                         </td>
                                         <td>
-                                            {{ $service->price}}
+                                            {{ $service->price .'/'.config('system.unit_price')[$service->unit_price]}}
                                         </td>
                                         <td>
                                             @if($service->is_enabled )

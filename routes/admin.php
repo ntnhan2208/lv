@@ -30,20 +30,25 @@ Route::namespace('admin')->group(function () {
 
             Route::resource('/bookings', 'BookingController');
 
-            Route::get('/create_for_new/{id}', 'RequestBookingController@createConfirmForNewCustomer')->name('create_for_new');
-            Route::post('/store_for_new/{id}', 'RequestBookingController@storeConfirmForNewCustomer')->name('store_for_new');
-            Route::get('/create_for_old/{id}', 'RequestBookingController@createConfirmForOldCustomer')->name('create_for_old');
-            Route::post('/store_for_old/{id}', 'RequestBookingController@storeConfirmForOldCustomer')->name('store_for_old');
-
-
-            Route::get('/re_create/{id}', 'BookingController@re_create')->name('re_create');
             Route::get('/check', 'BookingController@checkDuplicateCustomer')->name('check');
-            Route::post('/re_store/{id}', 'BookingController@re_store')->name('re_store');
+            Route::get('/room-booked', 'BookingController@roomBooked')->name('room-booked');
 
             Route::resource('/customers', 'CustomerController');
+            Route::get('/booking/customer/{id}', 'BookingController@customerBooked')->name('customer-booked');
             Route::resource('/rooms', 'RoomController');
             Route::resource('/types', 'TypeController');
             Route::resource('/services', 'ServiceController');
+            Route::resource('/appointments', 'AppointmentController');
+            Route::resource('/deposits', 'DepositsController');
+            Route::get('/add-deposits/{id}', 'DepositsController@addDepositsFromAppointment')->name('add-deposits');
+            Route::get('/add-booking/{id}', 'BookingController@addBookingFromAppointment')->name('add-bookings');
+            Route::get('/add-booking-from-deposits/{id}', 'BookingController@addBookingFromDeposits')->name('add-booking-from-deposits');
+
+            Route::get('/bills/{id}', 'BillController@index')->name('bill-index');
+            Route::get('/bills/create/{id}', 'BillController@create')->name('bill-create');
+            Route::get('/bills/edit/{id}', 'BillController@edit')->name('bill-edit');
+            Route::post('/bills/store/{id}', 'BillController@store')->name('bill-store');
+            Route::put('/bills/update/{id}', 'BillController@update')->name('bill-update');
         });
         Route::get('log', 'ActivitylogController@index')->name('activitylog.index');
         Route::get('data-log', 'ActivitylogController@data')->name('activitylog.data');

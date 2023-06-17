@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <div class="page-title-box">
                 <div class="row">
-                    <div class="col-lg-4"><h4 class="page-title"><?php echo e(trans('site.booking.title')); ?></h4></div>
+                    <div class="col-lg-4"><h4 class="page-title">Quản lý hợp đồng</h4></div>
                     <div class="col-lg-8">
                         <div class="row">
                             <div class="col-lg-8">
@@ -24,7 +24,7 @@
                             <div class="col-lg-4">
                                 <div class="float-right">
                                     <a class="btn btn-primary"
-                                       href="<?php echo e(route('bookings.create')); ?>"><?php echo e(trans('site.book')); ?></a>
+                                       href="<?php echo e(route('bookings.create')); ?>">Tạo hợp đồng mới</a>
                                 </div>
                             </div>
                         </div>
@@ -33,21 +33,6 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li><a class="nav-link active" href="#booked" role="tab" data-toggle="tab">Quản lý hợp đồng</a>
-                        </li>
-
-
-                        <li><a class="nav-link" href="#booking" role="tab" data-toggle="tab">Quản lý thuê phòng</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane active" id="booked">
-                    <div class="col-lg-12">
                         <div class="card mt-3">
                             <div class="card-body">
                                 <label>DANH SÁCH HỢP ĐỒNG</label>
@@ -82,17 +67,19 @@
                                                         <span class="badge badge-soft-<?php echo e($booking->paid==1 ? 'success' : 'danger'); ?>"><?php echo e(config('system.paid.'.$booking->paid)); ?></span>
                                                     </td>
                                                     <td class="text-right">
+                                                        <form class="float-right"
+                                                              action="<?php echo e(route('bookings.destroy',$booking->id)); ?>"
+                                                              method="POST"
+                                                              onSubmit="if(!confirm('<?php echo e(trans('site.admin.confirm')); ?>'))
+												  {return false;}">
+                                                            <?php echo e(method_field('DELETE')); ?>
 
+                                                            <?php echo e(csrf_field()); ?>
 
-
-
-
-
-
-
-
-
-
+                                                            <button type="submit" class="btn btn-xs btn-danger"><i
+                                                                        class="fas
+												fa-trash"></i></button>
+                                                        </form>
                                                         <div class="float-right">
                                                             <a class="btn btn-xs btn-primary mr-3"
                                                                href="<?php echo e(route('bookings.edit',$booking->id)); ?>">
@@ -108,128 +95,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div class="tab-pane" id="booking">
-                    <div class="col-lg-12">
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <label>DANH SÁCH CĂN HỘ ĐANG CHO THUÊ</label>
-                                <div class="table-rep-plugin">
-                                    <div class="table-responsive mb-0" data-pattern="priority-columns">
-                                        <hr>
-                                        <table id="tech-companies-1" class="table table-striped mb-0">
-                                            <thead>
-                                            <tr>
-                                                <th data-priority="1" class="text-center"></th>
-                                                <th data-priority="1">Phòng</th>
-                                                <th data-priority="1"><?php echo e(trans('site.booking.name')); ?></th>
-                                                <th data-priority="1"><?php echo e(trans('site.booking.phone')); ?></th>
-                                                <th data-priority="1">
-
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php $__currentLoopData = $bookings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $booking): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <tr>
-                                                    <td class="text-center"><?php echo e($loop->iteration); ?></td>
-                                                    <td><?php echo e($booking->room->name); ?></td>
-                                                    <td><?php echo e($booking->customer->name); ?></td>
-                                                    <td><?php echo e($booking->customer->phone); ?></td>
-                                                    <td class="text-right">
-                                                        <div class="float-right">
-                                                            <a class="btn btn-xs btn-primary mr-3"
-                                                               href="#">
-                                                                <i class="far fa-edit"></i>
-                                                            </a>
-                                                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <?php $__env->stopSection(); ?>
         <?php $__env->startSection('scripts'); ?>

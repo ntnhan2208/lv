@@ -29,11 +29,16 @@ class Booking extends Model
         return $this->belongsTo(Admin::class);
     }
 
+    public function bill()
+    {
+        return $this->hasOne(Bill::class);
+    }
+
     protected $casts = [
         'created_at' => 'date',
     ];
 
-    protected $fillable = ['request', 'paid', 'date_start', 'date_end', 'room_id', 'customer_id', 'admin_id', 'total_price', 'total_room', 'total_deposits', 'active'];
+    protected $fillable = ['request', 'paid', 'date_start', 'date_end', 'room_id', 'customer_id', 'admin_id', 'total_price', 'total_room', 'total_deposits', 'active', 'deposits'];
 
     public function scopeSearch($query)
     {

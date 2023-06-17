@@ -22,7 +22,6 @@ class CreateAdminsTable extends Migration
             $table->string('phone', 12)->nullable();
             $table->string('image')->nullable();
             $table->string('password');
-            $table->string('role')->nullable();
             $table->timestamps();
         });
     }

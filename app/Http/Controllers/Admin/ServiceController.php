@@ -94,6 +94,7 @@ class ServiceController extends BaseAdminController
         $service->name = $request->input('name');
         $service->description = $request->input('description');
         $service->price = $request->input('price');
+        $service->unit_price = $request->input('unit_price');
         $service->is_enabled = $request->input('is_enabled');
         $service->admin_id = Auth::user()->id;
         $service->save();

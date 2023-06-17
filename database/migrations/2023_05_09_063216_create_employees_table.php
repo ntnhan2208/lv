@@ -19,8 +19,9 @@ class CreateEmployeesTable extends Migration
             $table->string('name');
             $table->string('personal_id');
             $table->string('gender');
-            $table->string('phone', 12)->nullable();
+            $table->string('phone', 10)->nullable();
             $table->string('image')->nullable();
+            $table->integer('commission')->nullable();
             $table->foreignId('admin_id')->unsigned()->nullable()->constrained('admins');
             $table->timestamps();
         });

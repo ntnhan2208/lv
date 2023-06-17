@@ -35,7 +35,7 @@
 
                                         </td>
                                         <td>
-                                            <?php echo e($service->price); ?>
+                                            <?php echo e($service->price .'/'.config('system.unit_price')[$service->unit_price]); ?>
 
                                         </td>
                                         <td>

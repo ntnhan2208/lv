@@ -27,6 +27,10 @@ class Customer extends Model
     {
         return $this->belongsTo(Admin::class);
     }
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 
     public function scopeSearch($query)
     {

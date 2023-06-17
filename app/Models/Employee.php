@@ -15,6 +15,7 @@ class Employee extends Model
         'phone',
         'personal_id',
         'email',
+        'commission'
     ];
 
     public function admin()
@@ -22,6 +23,10 @@ class Employee extends Model
         return $this->belongsTo(Admin::class);
     }
 
+    public function appointment()
+    {
+        return $this->hasOne(Appointment::class);
+    }
     public function scopeSearch($query)
     {
         if ($key = request()->key) {

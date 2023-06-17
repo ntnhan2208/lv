@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('content')
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="card mt-3">
                 <div class="card-body shadow-lg bg-white rounded">
                     <form action="{{ route('customers.update',$customer->id)}}" method="POST"
@@ -45,41 +45,6 @@
                     px-4 mb-3 mt-2"><i class="fas fa-window-close"></i> {{trans('site.reset') }} </button>
                         </a>
                     </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card mt-3">
-                <div class="card-body shadow-lg bg-white rounded">
-                    <label>LỊCH SỬ THANH TOÁN</label>
-{{--                    <table id="tech-companies-1" class="table table-striped mb-0">--}}
-{{--                        <thead>--}}
-{{--                        <tr>--}}
-{{--                            <th data-priority="1" class="text-center"></th>--}}
-{{--                            <th data-priority="1">Tháng</th>--}}
-{{--                            <th data-priority="1">Ngày trả</th>--}}
-{{--                            <th data-priority="1">Tổng giá</th>--}}
-{{--                            <th data-priority="1">Trạng thái thanh toán</th>--}}
-{{--                            <th data-priority="1">--}}
-{{--                            </th>--}}
-{{--                        </tr>--}}
-{{--                        </thead>--}}
-{{--                        <tbody>--}}
-{{--                        @forelse($bookings as $booking)--}}
-{{--                            <tr>--}}
-{{--                                <td class="text-center">{{ $loop->iteration }}</td>--}}
-{{--                                <td>{{ $booking->date_start }}</td>--}}
-{{--                                <td>{{ $booking->date_end }}</td>--}}
-{{--                                <td>{{ $booking->total_price}}</td>--}}
-{{--                                <td>--}}
-{{--                                    <span class="badge badge-soft-{{ $booking->paid==1 ? 'success' : 'danger' }}">{{ config('system.paid.'.$booking->paid) }}</span>--}}
-{{--                                </td>--}}
-{{--                            </tr>--}}
-{{--                        @empty--}}
-{{--                            <span class="badge badge-soft-danger">Chưa có đơn đặt hàng!</span>--}}
-{{--                        @endforelse--}}
-{{--                        </tbody>--}}
-{{--                    </table>--}}
                 </div>
             </div>
         </div>

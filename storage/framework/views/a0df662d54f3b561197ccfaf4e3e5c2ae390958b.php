@@ -37,6 +37,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label>Đơn giá</label>
+                                    <select name="unit_price"
+                                            class="custom-select custom-select-sm form-control form-control-sm">
+                                        <?php $__currentLoopData = config('system.unit_price'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($k); ?>" <?php echo e(old('unit_price') == $k ? 'selected':''); ?>><?php echo e($v); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label><?php echo e(trans('site.service.is_enabled')); ?></label>
                                     <select name="is_enabled"
                                             class="custom-select custom-select-sm form-control form-control-sm">

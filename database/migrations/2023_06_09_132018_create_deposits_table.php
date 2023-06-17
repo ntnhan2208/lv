@@ -15,6 +15,15 @@ class CreateDepositsTable extends Migration
     {
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('phone', 10)->nullable();
+            $table->date('date');
+            $table->date('date_start');
+            $table->decimal('price', 9, 0);
+            $table->integer('type');
+            $table->text('note')->nullable();
+            $table->integer('status');
+            $table->foreignId('room_id')->unsigned()->nullable()->constrained('rooms');
             $table->timestamps();
         });
     }

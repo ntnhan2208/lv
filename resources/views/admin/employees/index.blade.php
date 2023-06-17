@@ -33,6 +33,7 @@
                                     <th data-priority="1">{{ trans('site.employee.name') }}</th>
                                     <th data-priority="1">{{ trans('site.employee.phone') }}</th>
                                     <th data-priority="1">{{ trans('site.employee.personal_id') }}</th>
+                                    <th data-priority="1">Phần trăm hoa hồng</th>
                                     <th data-priority="1"></th>
                                 </tr>
                                 </thead>
@@ -50,6 +51,9 @@
                                         </td>
                                         <td>
                                             {{ $employee->personal_id }}
+                                        </td>
+                                        <td>
+                                            {{ $employee->commission .'%' }}
                                         </td>
                                         <td class="text-right">
                                             <form class="float-right"

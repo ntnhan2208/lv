@@ -115,7 +115,7 @@
                                                            name="services[]" value="<?php echo e($service->id); ?>"
                                                            data-price="<?php echo e($service->price); ?>" <?php echo e((is_array(old('services')) && in_array($service->id,old('services'))) ? 'checked':''); ?>>
                                                     <label class="custom-control-label"
-                                                           for="<?php echo e($service->id); ?>"><?php echo e($service->name); ?></label>
+                                                           for="<?php echo e($service->id); ?>"><?php echo e($service->name.' (Đơn vị tính: '.config('system.unit_price')[$service->unit_price].')'); ?></label>
                                                 </div>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>

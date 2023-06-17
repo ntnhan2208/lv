@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\BookingRequest;
 use App\Http\Requests\ReBookingRequest;
+use App\Models\Appointment;
 use App\Models\Booking;
 use App\Models\Customer;
+use App\Models\Deposits;
 use App\Models\Room;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -14,12 +16,14 @@ use Illuminate\Support\Facades\DB;
 
 class BookingController extends BaseAdminController
 {
-    public function __construct(Room $room, Booking $booking, Service $service, Customer $customer)
+    public function __construct(Room $room, Booking $booking, Service $service, Customer $customer, Appointment $appointment, Deposits $deposits)
     {
         $this->booking = $booking;
         $this->room = $room;
         $this->service = $service;
         $this->customer = $customer;
+        $this->appointment = $appointment;
+        $this->deposits = $deposits;
         parent::__construct();
     }
 
@@ -27,6 +31,19 @@ class BookingController extends BaseAdminController
     {
         $bookings = $this->booking->where('active', 1)->get();
         return view('admin.bookings.index', compact('bookings'));
+    }
+
+    public function roomBooked()
+    {
+        $bookings = $this->booking->where('active', 1)->get();
+        return view('admin.bookings.booked', compact('bookings'));
+    }
+    public function customerBooked($id)
+    {
+
+        $room = $this->room->find($id);
+        $customers = $room->customer()->get();
+        return view('admin.bookings.customer.index', compact('customers','room'));
     }
 
 
@@ -39,10 +56,10 @@ class BookingController extends BaseAdminController
 
     public function store(BookingRequest $request, Booking $booking, Customer $customer)
     {
+        $this->syncRequest($request, $booking, $customer);
+        DB::commit();
         DB::beginTransaction();
         try {
-            $this->syncRequest($request, $booking, $customer);
-            DB::commit();
             toastr()->success(trans('site.message.add_success'));
             return redirect()->route('bookings.index');
         } catch (\Exception $e) {
@@ -52,37 +69,19 @@ class BookingController extends BaseAdminController
         }
     }
 
-//    re-book
-    public function re_create($id)
-    {
-        $customer = $this->customer->find($id);
+    public function addBookingFromAppointment($id){
+        $appointment = $this->appointment->find($id);
         $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
         $services = $this->service->where('is_enabled', 1)->get();
-        if ($customer) {
-            return view('admin.bookings.re-add', compact('customer', 'rooms', 'services'));
-        }
-        toastr()->error(trans('site.message.error'));
-        return redirect()->route('customers.index');
-
+        return view('admin.bookings.add-from-appointment', compact('appointment','rooms' ,'services'));
+    }
+    public function addBookingFromDeposits($id){
+        $deposits = $this->deposits->find($id);
+        $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
+        $services = $this->service->where('is_enabled', 1)->get();
+        return view('admin.bookings.add-from-deposits', compact('deposits','rooms' ,'services'));
     }
 
-    public function re_store(ReBookingRequest $request, Booking $booking, $id)
-    {
-        DB::beginTransaction();
-        try {
-            $booking->customer_id = $id;
-            $this->syncRequest2($request, $booking);
-            DB::commit();
-            toastr()->success(trans('site.message.add_success'));
-            return redirect()->route('bookings.index');
-
-        } catch (\Exception $e) {
-            DB::rollback();
-            toastr()->error(trans('site.message.error'));
-            return back();
-        }
-
-    }
 
     public function edit($id)
     {
@@ -160,6 +159,7 @@ class BookingController extends BaseAdminController
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
         $customer->phone = $request->input('phone');
+        $customer->room_id = $request->input('room_id');
         $customer->personal_id = $request->input('personal_id');
         $customer->admin_id = Auth::user()->id;
         $customer->save();
@@ -171,11 +171,18 @@ class BookingController extends BaseAdminController
         $booking->room_id = $request->input('room_id');
         $booking->total_room = $request->input('total_room');
         $booking->total_deposits = $request->input('total_deposits');
+        $booking->deposits = $request->input('deposits');
         $booking->total_price = $request->input('total_price');
         $booking->paid = $request->input('paid');
         $booking->customer_id = $customer->id;
         $booking->admin_id = Auth::user()->id;
         $booking->save();
+
+        $phone = $this->customer->find($booking->customer_id)->phone;
+        $appointment = $this->appointment->where(['phone' => $phone, 'room_id' => $booking->room_id])->first();
+        if($appointment){
+            $this->appointment->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>3]) ;
+        }
 
 //        revert booked in room
         $current_booking = $this->booking->find($booking->id);
@@ -198,6 +205,7 @@ class BookingController extends BaseAdminController
         $booking->room_id = $request->input('room_id');
         $booking->total_room = $request->input('total_room');
         $booking->total_deposits = $request->input('total_deposits');
+        $booking->deposits = $request->input('deposits');
         $booking->total_price = $request->input('total_price');
         $booking->paid = $request->input('paid');
         $booking->admin_id = Auth::user()->id;

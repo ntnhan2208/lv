@@ -19,9 +19,8 @@ class CreateServicesTable extends Migration
             $table->string('image')->nullable();
             $table->text('description');
             $table->decimal('price', 9, 0);
+            $table->boolean('unit_price');
             $table->boolean('is_enabled')->default(true);
-//            $table->integer('admin_id')->unsigned();
-//            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
             $table->foreignId('admin_id')->unsigned()->nullable()->constrained('admins');
             $table->timestamps();
         });
