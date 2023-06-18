@@ -38,4 +38,11 @@ class Room extends Model
 
     protected $fillable = ['name', 'amount', 'image', 'price', 'booked', 'type_id', 'description', 'is_enabled', 'admin_id','acreage'];
 
+    public function checkEmptyRoom(){
+        $room = Room::where('is_enabled', 1)->where('booked', 0)->get();
+        if($room->isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }

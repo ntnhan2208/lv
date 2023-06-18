@@ -22,7 +22,7 @@ class RoomRequest extends FormRequest
         switch ( $this->method()){
             case 'POST':
                 return [
-                    'name' => ['required',Rule::unique('rooms')],
+                    'name' => ['required'],
                     'amount' => 'required|numeric',
                     'price' => 'required|numeric',
                     'description' => 'required',
@@ -30,7 +30,7 @@ class RoomRequest extends FormRequest
             case 'PATCH':
             case 'PUT':
                 return [
-                    'name' => ['required',Rule::unique('rooms')->ignore($this->room,'id')],
+                    'name' => ['required'],
                     'amount' => 'required|numeric',
                     'price' => 'required|numeric',
                     'description' => 'required',
@@ -41,7 +41,6 @@ class RoomRequest extends FormRequest
     {
         return [
             'name.required' => trans('site.room.validation.name_not_empty'),
-            'name.unique' => trans('site.room.validation.name_exist'),
             'amount.required' => trans('site.room.validation.amount_not_empty'),
             'amount.numeric' => trans('site.room.validation.amount_not_numeric'),
             'price.required' => trans('site.room.validation.price_not_empty'),

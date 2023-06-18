@@ -58,7 +58,7 @@
                                             <label>{{ trans('site.booking.date_start') }} </label>
                                             <div class="input-group">
                                                 <input class="form-control" type="date" name="date_start"
-                                                       id="date_start" value="{{$booking->date_start}}">
+                                                       id="date_start" value="{{$booking->date_start}}" style="pointer-events: none">
                                             </div>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
                                             <label>{{ trans('site.booking.date_end') }} </label>
                                             <div class="input-group">
                                                 <input class="form-control" type="date" name="date_end"
-                                                       id="date_end" value="{{$booking->date_end}}">
+                                                       id="date_end" value="{{$booking->date_end}}" style="pointer-events: none">
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@
                                         <div class="form-group">
                                             <label>{{ trans('site.booking.rooms') }} </label>
                                             <select class="custom-select custom-select-sm form-control form-control-sm"
-                                                    id="price" name="room_id">
+                                                    id="price" name="room_id" style="pointer-events: none">
                                                 <option value="{{$current_room->id}}"
                                                         data-price="{{$current_room->price}}"
                                                         selected>{{$current_room->name}}</option>

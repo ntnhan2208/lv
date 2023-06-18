@@ -116,7 +116,7 @@
                                                            name="services[]" value="{{$service->id}}"
                                                            data-price="{{$service->price}}" {{ (is_array(old('services')) && in_array($service->id,old('services'))) ? 'checked':'' }}>
                                                     <label class="custom-control-label"
-                                                           for="{{$service->id}}">{{$service->name}}</label>
+                                                           for="{{$service->id}}">{{$service->name.' (Đơn vị tính: '.config('system.unit_price')[$service->unit_price].')'}}</label>
                                                 </div>
                                             @endforeach
                                         </div>

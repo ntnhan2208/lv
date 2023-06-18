@@ -29,6 +29,13 @@
 <script src="{{asset('admin/assets/js/app.js')}}"></script>
 @include('ckfinder::setup')
 <script src={{ asset('ckeditor/ckeditor.js') }}></script>
+
+<script>
+    $("body").on('input', '.integerInput', function () {
+        $(this).val($(this).val().replace(/[^0-9]/gi, ''));
+    });
+
+</script>
 @toastr_js
 @toastr_render
 @yield('script')

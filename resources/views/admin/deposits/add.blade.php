@@ -91,7 +91,7 @@
                                 <div class="form-group">
                                     <label>Số tiền cọc</label>
                                     <div class="input-group">
-                                        <input class="form-control" type="text" name="price"
+                                        <input class="form-control integerInput" type="text" name="price"
                                               value="{{old('price')}}">
                                     </div>
                                 </div>

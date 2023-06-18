@@ -10,15 +10,6 @@
                         <?php echo e(method_field('PUT')); ?>
 
                         <div class="row">
-
-
-
-
-
-
-
-
-
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Ngày lập hóa đơn</label>
@@ -38,74 +29,86 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="row">
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số điện cũ</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="old_electric" name="old_electric"
-                                                       value="<?php echo e($bill->old_electric); ?>"  readonly>
+                                    <div class="col-6">
+                                        <label style="font-weight: bold;">ĐIỆN</label>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số điện cũ</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="old_electric" name="old_electric"
+                                                               value="<?php echo e($bill->old_electric); ?>"  readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số điện mới</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="new_electric" name="new_electric"
+                                                               value="<?php echo e($bill->new_electric); ?>" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label style="font-weight: bold">Tiền điện</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="electric"
+                                                               value=" " readonly>
+                                                        <input class="form-control" type="text" id="electric-input" name="electric"
+                                                               value="<?php echo e($bill->electric); ?>" hidden readonly>
+                                                        <input class="form-control" type="text" id="electric-price"
+                                                               value="3500" hidden readonly>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số điện mới</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="new_electric" name="new_electric"
-                                                       value="<?php echo e($bill->new_electric); ?>" readonly>
+                                    <div class="col-6">
+                                        <label style="font-weight: bold;">NƯỚC</label>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số nước cũ</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="old_water" value="<?php echo e($bill->old_water); ?>" name="old_water" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số nước mới</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" value="<?php echo e($bill->new_water); ?>" id="new_water" name="new_water" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label style="font-weight: bold">Tiền nước</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="water"
+                                                               value=" " readonly>
+                                                        <input class="form-control" type="text" id="water-input" name="water"
+                                                               value="<?php echo e($bill->water); ?>" hidden readonly>
+                                                        <input class="form-control" type="text" id="water-price"
+                                                               value="3500" hidden readonly>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label style="font-weight: bold">Tiền điện</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="electric"
-                                                       value=" " readonly>
-                                                <input class="form-control" type="text" id="electric-input" name="electric"
-                                                      value="<?php echo e($bill->electric); ?>" hidden readonly>
-                                                <input class="form-control" type="text" id="electric-price"
-                                                       value="3500" hidden readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số nước cũ</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="old_water" value="<?php echo e($bill->old_water); ?>" name="old_water" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số nước mới</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" value="<?php echo e($bill->new_water); ?>" id="new_water" name="new_water" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label style="font-weight: bold">Tiền nước</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="water"
-                                                       value=" " readonly>
-                                                <input class="form-control" type="text" id="water-input" name="water"
-                                                       value="<?php echo e($bill->water); ?>" hidden readonly>
-                                                <input class="form-control" type="text" id="water-price"
-                                                       value="3500" hidden readonly>
-                                            </div>
-                                        </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
                             <?php if($bill->service): ?>
                             <div class="col-lg-4">
+                                <label style="font-weight: bold;">DỊCH VỤ KHÁC</label>
                                 <?php $__currentLoopData = $bill->service; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php
                                 $name = \App\Models\Service::where('id', $key)->first()->name;
@@ -135,6 +138,7 @@
                             </div>
                             <?php endif; ?>
                         </div>
+                        <hr>
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
@@ -183,6 +187,7 @@
                             </div>
 
                         </div>
+
                         <button type="submit" class="btn btn-primary px-4 mb-3 mt-2">
                             <i class="mdi mdi-plus-circle-outline mr-2"></i>
                             Cập nhật

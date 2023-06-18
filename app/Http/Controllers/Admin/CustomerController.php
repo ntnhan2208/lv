@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -23,9 +24,10 @@ class CustomerController extends BaseAdminController
         return view('admin.customers.index', compact('customers'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.customers.add');
+        $room = $request->room;
+        return view('admin.customers.add', compact('room'));
     }
 
     public function store(CustomerRequest $request, Customer $customer)
@@ -33,6 +35,7 @@ class CustomerController extends BaseAdminController
         DB::beginTransaction();
         try {
             $this->syncRequest($request, $customer);
+            $this->customer->where('id', $customer->id)->update(['room_id'=>$request->room]);
             DB::commit();
             toastr()->success(trans('site.message.add_success'));
             return redirect()->route('customers.index');
@@ -58,10 +61,11 @@ class CustomerController extends BaseAdminController
 
     public function update(CustomerRequest $request, $id)
     {
+        $customer = $this->customer->find($id);
+        $this->syncRequest($request, $customer);
+
         DB::beginTransaction();
         try {
-            $customer = $this->customer->find($id);
-            $this->syncRequest($request, $customer);
             DB::commit();
             toastr()->success(trans('site.message.update_success'));
             return redirect()->route('customers.index');
@@ -76,7 +80,7 @@ class CustomerController extends BaseAdminController
     {
         $customer = $this->customer->find($id);
         if ($customer->bookings()->exists()) {
-            toastr()->error('Khách hàng đang có đơn hàng. Không thể xoá!');
+            toastr()->error('Khách hàng đang có hợp đồng. Không thể xoá!');
         } else {
             $customer->delete();
             toastr()->success(trans('site.message.delete_success'));

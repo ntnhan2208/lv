@@ -58,7 +58,7 @@
                                             <label><?php echo e(trans('site.booking.date_start')); ?> </label>
                                             <div class="input-group">
                                                 <input class="form-control" type="date" name="date_start"
-                                                       id="date_start" value="<?php echo e($booking->date_start); ?>">
+                                                       id="date_start" value="<?php echo e($booking->date_start); ?>" style="pointer-events: none">
                                             </div>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
                                             <label><?php echo e(trans('site.booking.date_end')); ?> </label>
                                             <div class="input-group">
                                                 <input class="form-control" type="date" name="date_end"
-                                                       id="date_end" value="<?php echo e($booking->date_end); ?>">
+                                                       id="date_end" value="<?php echo e($booking->date_end); ?>" style="pointer-events: none">
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@
                                         <div class="form-group">
                                             <label><?php echo e(trans('site.booking.rooms')); ?> </label>
                                             <select class="custom-select custom-select-sm form-control form-control-sm"
-                                                    id="price" name="room_id">
+                                                    id="price" name="room_id" style="pointer-events: none">
                                                 <option value="<?php echo e($current_room->id); ?>"
                                                         data-price="<?php echo e($current_room->price); ?>"
                                                         selected><?php echo e($current_room->name); ?></option>

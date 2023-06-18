@@ -9,15 +9,6 @@
                         @csrf
                         {{ method_field('PUT') }}
                         <div class="row">
-{{--                            <div class="col-lg-4">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label>Tháng thu tiền thuê</label>--}}
-{{--                                    <div class="input-group">--}}
-{{--                                        <input class="form-control" type="month" name="month"--}}
-{{--                                               id="date_start" >--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Ngày lập hóa đơn</label>
@@ -37,74 +28,86 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="row">
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số điện cũ</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="old_electric" name="old_electric"
-                                                       value="{{$bill->old_electric}}"  readonly>
+                                    <div class="col-6">
+                                        <label style="font-weight: bold;">ĐIỆN</label>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số điện cũ</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="old_electric" name="old_electric"
+                                                               value="{{$bill->old_electric}}"  readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số điện mới</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="new_electric" name="new_electric"
+                                                               value="{{$bill->new_electric}}" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label style="font-weight: bold">Tiền điện</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="electric"
+                                                               value=" " readonly>
+                                                        <input class="form-control" type="text" id="electric-input" name="electric"
+                                                               value="{{$bill->electric}}" hidden readonly>
+                                                        <input class="form-control" type="text" id="electric-price"
+                                                               value="3500" hidden readonly>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số điện mới</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="new_electric" name="new_electric"
-                                                       value="{{$bill->new_electric}}" readonly>
+                                    <div class="col-6">
+                                        <label style="font-weight: bold;">NƯỚC</label>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số nước cũ</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="old_water" value="{{$bill->old_water}}" name="old_water" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số nước mới</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" value="{{$bill->new_water}}" id="new_water" name="new_water" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label style="font-weight: bold">Tiền nước</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="water"
+                                                               value=" " readonly>
+                                                        <input class="form-control" type="text" id="water-input" name="water"
+                                                               value="{{$bill->water}}" hidden readonly>
+                                                        <input class="form-control" type="text" id="water-price"
+                                                               value="3500" hidden readonly>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label style="font-weight: bold">Tiền điện</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="electric"
-                                                       value=" " readonly>
-                                                <input class="form-control" type="text" id="electric-input" name="electric"
-                                                      value="{{$bill->electric}}" hidden readonly>
-                                                <input class="form-control" type="text" id="electric-price"
-                                                       value="3500" hidden readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số nước cũ</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="old_water" value="{{$bill->old_water}}" name="old_water" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số nước mới</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" value="{{$bill->new_water}}" id="new_water" name="new_water" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label style="font-weight: bold">Tiền nước</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="water"
-                                                       value=" " readonly>
-                                                <input class="form-control" type="text" id="water-input" name="water"
-                                                       value="{{$bill->water}}" hidden readonly>
-                                                <input class="form-control" type="text" id="water-price"
-                                                       value="3500" hidden readonly>
-                                            </div>
-                                        </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
                             @if($bill->service)
                             <div class="col-lg-4">
+                                <label style="font-weight: bold;">DỊCH VỤ KHÁC</label>
                                 @foreach($bill->service as $key => $service)
                                 @php
                                 $name = \App\Models\Service::where('id', $key)->first()->name;
@@ -134,6 +137,7 @@
                             </div>
                             @endif
                         </div>
+                        <hr>
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
@@ -182,6 +186,7 @@
                             </div>
 
                         </div>
+
                         <button type="submit" class="btn btn-primary px-4 mb-3 mt-2">
                             <i class="mdi mdi-plus-circle-outline mr-2"></i>
                             Cập nhật

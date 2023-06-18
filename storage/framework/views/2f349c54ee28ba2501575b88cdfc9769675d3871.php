@@ -4,6 +4,7 @@
         <div class="col-lg-12">
             <div class="card mt-3">
                 <div class="card-body shadow-lg bg-white rounded">
+                    <h3>Hóa đơn tiền thuê căn hộ</h3>
                     <form action="<?php echo e(route('bill-store',$bookingOfRoom->room->id)); ?>" method="POST" enctype="multipart/form-data">
                         <?php echo csrf_field(); ?>
                         <div class="row">
@@ -35,75 +36,88 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="row">
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số điện cũ</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="old_electric" name="old_electric"
-                                                       value="">
+                                    <div class="col-6">
+                                        <label style="font-weight: bold;">ĐIỆN</label>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số điện cũ</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="old_electric" name="old_electric"
+                                                               value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số điện mới</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="new_electric" name="new_electric"
+                                                               value=" ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label style="font-weight: bold">Tiền điện</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="electric"
+                                                               value=" " readonly>
+                                                        <input class="form-control" type="text" id="electric-input" name="electric"
+                                                               hidden readonly>
+                                                        <input class="form-control" type="text" id="electric-price"
+                                                               value="3500" hidden readonly>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số điện mới</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="new_electric" name="new_electric"
-                                                       value=" ">
+                                    <div class="col-6">
+                                        <label style="font-weight: bold;">NƯỚC</label>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số nước cũ</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="old_water" name="old_water">
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label style="font-weight: bold">Tiền điện</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="electric"
-                                                       value=" ">
-                                                <input class="form-control" type="text" id="electric-input" name="electric"
-                                                        hidden readonly>
-                                                <input class="form-control" type="text" id="electric-price"
-                                                       value="3500" hidden readonly>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label>Số nước mới</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="new_water" name="new_water">
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số nước cũ</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="old_water" name="old_water">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label>Số nước mới</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="new_water" name="new_water">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="form-group">
-                                            <label style="font-weight: bold">Tiền nước</label>
-                                            <div class="input-group">
-                                                <input class="form-control" type="text" id="water"
-                                                value=" ">
-                                                <input class="form-control" type="text" id="water-input" name="water"
-                                                        hidden readonly>
-                                                <input class="form-control" type="text" id="water-price"
-                                                       value="3500" hidden readonly>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label style="font-weight: bold">Tiền nước</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="water"
+                                                               value=" " readonly>
+                                                        <input class="form-control" type="text" id="water-input" name="water"
+                                                               hidden readonly>
+                                                        <input class="form-control" type="text" id="water-price"
+                                                               value="3500" hidden readonly>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
+
                                 </div>
                             </div>
                             <div class="col-lg-4">
+                                <label style="font-weight: bold;">DỊCH VỤ KHÁC</label>
                                 <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php if(in_array($service->id,[1,2])): ?>
+                                    <?php if(!in_array($service->id,[1,2])): ?>
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
@@ -119,7 +133,7 @@
                                                 <label>Thành tiền</label>
                                                 <div class="input-group">
                                                     <input class="form-control" type="text" id="price-<?php echo e($service->id); ?>"
-                                                           value=" " name="">
+                                                           value=" " name="" readonly>
                                                     <input class="form-control service-input" type="text" id="price-input-<?php echo e($service->id); ?>"
                                                            value=" " hidden readonly>
                                                     <input class="form-control" type="text" id="price-service-<?php echo e($service->id); ?>"
@@ -132,12 +146,13 @@
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </div>
+                        <hr>
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>Tiền thuê căn hộ</label>
                                     <div class="input-group">
-                                        <input class="form-control" type="text" id="total_room">
+                                        <input class="form-control" type="text" id="total_room" readonly>
                                         <input class="form-control" type="text" id="total_room_input" name="total_room"
                                                value="<?php echo e($bookingOfRoom->total_room); ?>" hidden readonly>
                                     </div>
@@ -148,7 +163,7 @@
                                     <label>Tổn tiền dịch vụ</label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" id="total_service"
-                                               value=" ">
+                                               value=" " readonly>
                                         <input class="form-control" type="text" id="total_service_input" name="total_service"
                                                value=" " hidden readonly>
                                     </div>
@@ -159,7 +174,7 @@
                                     <label>Số tiền cần thanh toán</label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" id="total"
-                                               value=" ">
+                                               value=" " readonly>
                                         <input class="form-control" type="text" id="total-input" name="total"
                                                value=" " hidden readonly>
                                     </div>

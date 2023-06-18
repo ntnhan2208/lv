@@ -29,6 +29,13 @@
 <script src="<?php echo e(asset('admin/assets/js/app.js')); ?>"></script>
 <?php echo $__env->make('ckfinder::setup', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <script src=<?php echo e(asset('ckeditor/ckeditor.js')); ?>></script>
+
+<script>
+    $("body").on('input', '.integerInput', function () {
+        $(this).val($(this).val().replace(/[^0-9]/gi, ''));
+    });
+
+</script>
 <?php echo toastr_js(); ?>
 <?php echo app('toastr')->render(); ?>
 <?php echo $__env->yieldContent('script'); ?>

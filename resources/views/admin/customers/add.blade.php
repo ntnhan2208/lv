@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="card mt-3">
                 <div class="card-body shadow-lg bg-white rounded">
-                    <form action="{{ route('customers.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('customers.store','room='.$room)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label>{{ trans('site.customer.name') }} </label>

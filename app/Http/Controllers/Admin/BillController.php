@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BillRequest;
 use App\Models\Bill;
 use App\Models\Booking;
 use App\Models\Room;
@@ -38,7 +39,7 @@ class BillController extends BaseAdminController
     }
 
 
-    public function store(Request $request, $id, Bill $bill)
+    public function store(BillRequest $request, $id, Bill $bill)
     {
         $this->syncRequest($request, $bill);
         DB::commit();
@@ -64,7 +65,7 @@ class BillController extends BaseAdminController
     }
 
 
-    public function update(Request $request, $id)
+    public function update(BillRequest $request, $id)
     {
         DB::beginTransaction();
         try {

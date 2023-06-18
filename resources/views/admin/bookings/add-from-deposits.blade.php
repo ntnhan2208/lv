@@ -81,11 +81,11 @@
                                         <div class="form-group">
                                             <label>{{ trans('site.booking.rooms') }} </label>
                                             <select class="custom-select custom-select-sm form-control form-control-sm"
-                                                    id="price" name="room_id">
-                                                @foreach($rooms as $room)
+                                                    id="price" name="room_id" style="pointer-events: none">
+
                                                     <option value="{{$room->id}}"
-                                                            data-price="{{$room->price}}" {{$deposits->room_id == $room->id ? 'selected':''}}>{{$room->name}}</option>
-                                                @endforeach
+                                                            data-price="{{$room->price}}" selected>{{$room->name}}</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@
                                                            name="services[]" value="{{$service->id}}"
                                                            data-price="{{$service->price}}" {{ (is_array(old('services')) && in_array($service->id,old('services'))) ? 'checked':'' }}>
                                                     <label class="custom-control-label"
-                                                           for="{{$service->id}}">{{$service->name}}</label>
+                                                           for="{{$service->id}}">{{$service->name.' (Đơn vị tính: '.config('system.unit_price')[$service->unit_price].')'}}</label>
                                                 </div>
                                             @endforeach
                                         </div>

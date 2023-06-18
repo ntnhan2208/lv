@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DepositsRequest;
 use App\Models\Appointment;
 use App\Models\Deposits;
 use App\Models\Room;
@@ -31,7 +32,7 @@ class DepositsController extends BaseAdminController
         return view('admin.deposits.add', compact('rooms'));
     }
 
-    public function store(Request $request, deposits $deposits)
+    public function store(DepositsRequest $request, deposits $deposits)
     {
         $this->syncRequest($request, $deposits);
         DB::beginTransaction();
@@ -59,12 +60,12 @@ class DepositsController extends BaseAdminController
     }
 
 
-    public function update(Request $request, $id)
+    public function update(DepositsRequest $request, $id)
     {
         DB::beginTransaction();
-        $deposits = $this->deposits->find($id);
-        $this->syncRequest($request, $deposits);
         try {
+            $deposits = $this->deposits->find($id);
+            $this->syncRequest($request, $deposits);
             DB::commit();
             toastr()->success(trans('site.message.update_success'));
             return redirect()->route('deposits.index');
@@ -84,6 +85,11 @@ class DepositsController extends BaseAdminController
     }
 
     public function addDepositsFromAppointment($id){
+        $checkEmptyRoom = $this->room->checkEmptyRoom();
+        if(!$checkEmptyRoom){
+            toastr()->error(trans('Đã hết phòng trống'));
+            return back();
+        }
         $appointment = $this->appointment->find($id);
         $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
         return view('admin.deposits.add-from-appointment', compact('appointment','rooms'));
@@ -99,6 +105,7 @@ class DepositsController extends BaseAdminController
         $deposits->note = $request->input('note');
         $deposits->price = $request->input('price');
         $deposits->room_id = $request->input('room_id');
+        $deposits->status = $request->input('status') <> 0 ? $request->input('status') : 0;
         $deposits->save();
 
 
@@ -107,5 +114,6 @@ class DepositsController extends BaseAdminController
         if($appointment){
            $this->appointment->where(['phone' => $deposits->phone, 'room_id' => $deposits->room_id])->update(['status'=>2]) ;
         }
+        $this->room->where(['id' => $deposits->room_id])->update(['booked'=>1]) ;
     }
 }

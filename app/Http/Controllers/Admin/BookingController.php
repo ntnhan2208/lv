@@ -29,6 +29,7 @@ class BookingController extends BaseAdminController
 
     public function index()
     {
+
         $bookings = $this->booking->where('active', 1)->get();
         return view('admin.bookings.index', compact('bookings'));
     }
@@ -49,6 +50,11 @@ class BookingController extends BaseAdminController
 
     public function create()
     {
+        $checkEmptyRoom = $this->room->checkEmptyRoom();
+        if(!$checkEmptyRoom){
+            toastr()->error(trans('Đã hết phòng trống'));
+            return back();
+        }
         $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
         $services = $this->service->where('is_enabled', 1)->get();
         return view('admin.bookings.add', compact('rooms', 'services'));
@@ -70,6 +76,11 @@ class BookingController extends BaseAdminController
     }
 
     public function addBookingFromAppointment($id){
+        $checkEmptyRoom = $this->room->checkEmptyRoom();
+        if(!$checkEmptyRoom){
+            toastr()->error(trans('Đã hết phòng trống'));
+            return back();
+        }
         $appointment = $this->appointment->find($id);
         $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
         $services = $this->service->where('is_enabled', 1)->get();
@@ -77,9 +88,9 @@ class BookingController extends BaseAdminController
     }
     public function addBookingFromDeposits($id){
         $deposits = $this->deposits->find($id);
-        $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
+        $room = $this->room->where('id',$deposits->room_id)->first();
         $services = $this->service->where('is_enabled', 1)->get();
-        return view('admin.bookings.add-from-deposits', compact('deposits','rooms' ,'services'));
+        return view('admin.bookings.add-from-deposits', compact('deposits','room' ,'services'));
     }
 
 
@@ -125,17 +136,13 @@ class BookingController extends BaseAdminController
         $booking->services()->detach();
         $booking->room->booked = 0;
         $booking->room->save();
+        if ($booking->bill->id) {
+            toastr()->error('Không thể xoá hợp đồng');
+            return back();
+        }
         $booking->delete();
         toastr()->success(trans('site.message.delete_success'));
 
-//        check có KH
-//        if ($booking->customer->id) {
-//            toastr()->error('Không thể xoá đơn hàng');
-//        } else {
-//            $booking->services()->detach();
-//            $booking->delete();
-//            toastr()->success(trans('site.message.delete_success'));
-//        }
         return redirect()->route('bookings.index');
     }
 
@@ -183,6 +190,10 @@ class BookingController extends BaseAdminController
         if($appointment){
             $this->appointment->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>3]) ;
         }
+        $deposits = $this->deposits->where(['phone' => $phone, 'room_id' => $booking->room_id])->first();
+        if($deposits){
+            $this->deposits->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>1]) ;
+        }
 
 //        revert booked in room
         $current_booking = $this->booking->find($booking->id);
@@ -216,11 +227,11 @@ class BookingController extends BaseAdminController
         $current_booking->services()->sync($request->input('services'));
 
         $room = $current_booking->room()->find($booking->room_id);
-        if ($booking->paid == 0) {
-            $room->booked = 1;
-        } else {
-            $room->booked = 0;
-        }
+//        if ($booking->paid == 0) {
+//            $room->booked = 1;
+//        } else {
+//            $room->booked = 0;
+//        }
         $room->save();
     }
 }

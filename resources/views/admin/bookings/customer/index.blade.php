@@ -5,7 +5,7 @@
             <div class="page-title-box">
                 @if($room->amount != count($customers))
                     <div class="float-right">
-                        <a class="btn btn-primary" href="{{ route('customers.create') }}">{{ trans('site.add') }}</a>
+                        <a class="btn btn-primary" href="{{ route('customers.create','room='.$room->id) }}">{{ trans('site.add') }}</a>
                     </div>
                 @endif
                 <h4 class="page-title">Danh sách khách thuê căn

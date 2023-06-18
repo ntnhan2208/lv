@@ -23,7 +23,7 @@
                                     <label>{{ trans('site.employee.personal_id') }} </label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="personal_id"
-                                               class="form-control"
+                                               class="form-control integerInput"
                                                value="{{$employee->personal_id}}">
                                     </div>
                                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AppointmentRequest;
 use App\Models\Appointment;
 use App\Models\Employee;
 use App\Models\Room;
@@ -28,12 +29,17 @@ class AppointmentController extends BaseAdminController
 
     public function create()
     {
+        $checkEmptyRoom = $this->room->checkEmptyRoom();
+        if(!$checkEmptyRoom){
+            toastr()->error(trans('Đã hết phòng trống'));
+            return back();
+        }
         $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
         $employees = $this->employee->all();
         return view('admin.appointments.add', compact('rooms', 'employees'));
     }
 
-    public function store(Request $request, Appointment $appointment)
+    public function store(AppointmentRequest $request, Appointment $appointment)
     {
         $this->syncRequest($request, $appointment);
         DB::beginTransaction();
@@ -62,7 +68,7 @@ class AppointmentController extends BaseAdminController
     }
 
 
-    public function update(Request $request, $id)
+    public function update(AppointmentRequest $request, $id)
     {
         DB::beginTransaction();
         try {

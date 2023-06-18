@@ -22,7 +22,7 @@
                                     <label>{{ trans('site.employee.personal_id') }} </label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="personal_id"
-                                               class="form-control"
+                                               class="form-control integerInput"
                                                placeholder="{{ trans('site.employee.personal_id') }}"
                                                value="{{old('personal_id')}}">
                                     </div>
@@ -98,7 +98,7 @@
                                     <label>Phần trăm hoa hồng</label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="commission"
-                                               class="form-control"
+                                               class="form-control integerInput"
                                                value="{{old('commission')}}">
                                     </div>
                                 </div>

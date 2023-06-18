@@ -15,7 +15,7 @@
                                         <input type="text" id="example-input1-group1" name="name"
                                                class="form-control"
                                                placeholder="{{ trans('site.customer.name') }}"
-                                               value="{{$deposits->name}}">
+                                               value="{{$deposits->name}}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -26,7 +26,7 @@
                                         <input type="text" id="example-input1-group1" name="phone"
                                                class="form-control"
                                                placeholder="Số điện thoại"
-                                               value="{{$deposits->phone}}">
+                                               value="{{$deposits->phone}}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label>Phòng cọc</label>
                                     <select class="custom-select custom-select-sm form-control form-control-sm"
-                                            name="room_id">
+                                            name="room_id" style="pointer-events: none">
                                         @foreach($rooms as $room)
                                             <option value="{{$room->id}}"
                                                     {{$deposits->room_id == $room->id ? 'selected':''}}>{{$room->name}}</option>
@@ -49,7 +49,7 @@
                                     <label>Ngày nhận cọc</label>
                                     <div class="input-group">
                                         <input class="form-control" type="date" name="date"
-                                               id="date_start" value="{{$deposits->date}}">
+                                               id="date_start" value="{{$deposits->date}}" style="pointer-events: none">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                     <label>Ngày dự kiến vào ở</label>
                                     <div class="input-group">
                                         <input class="form-control" type="date" name="date_start"
-                                               id="date_start" value="{{$deposits->date_start}}">
+                                               id="date_start" value="{{$deposits->date_start}}" style="pointer-events: none">
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                 <div class="form-group">
                                     <label>Loại cọc</label>
                                     <select class="custom-select custom-select-sm form-control form-control-sm"
-                                            name="type">
+                                            name="type" style="pointer-events: none">
                                         @foreach(config('system.deposits') as $k=>$v)
                                             <option value="{{$k}}">{{$v}}</option>
                                         @endforeach
@@ -92,21 +92,15 @@
                                 <div class="form-group">
                                     <label>Số tiền cọc</label>
                                     <div class="input-group">
-                                        <input class="form-control" type="text" name="price"
-                                               value="{{$deposits->price}}">
+                                        <input class="form-control integerInput" type="text" name="price"
+                                               value="{{$deposits->price}}" readonly>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-                        <button type="submit" class="btn btn-primary px-4 mb-3 mt-2">
-                            <i class="mdi mdi-plus-circle-outline mr-2"></i>
-                            Đặt cọc
-                        </button>
                         <a href="{{ route('appointments.index') }}">
                             <button type="button" class="btn btn-danger ml-2
-                    px-4 mb-3 mt-2"><i class="fas fa-window-close"></i> {{trans('site.reset') }} </button>
+                    px-4 mb-3 mt-2"><i class="fas fa-window-close"></i> Quay về</button>
                         </a>
                     </form>
                 </div>
