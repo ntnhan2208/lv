@@ -34,9 +34,9 @@ class DepositsController extends BaseAdminController
 
     public function store(DepositsRequest $request, deposits $deposits)
     {
-        $this->syncRequest($request, $deposits);
         DB::beginTransaction();
         try {
+            $this->syncRequest($request, $deposits);
             DB::commit();
             toastr()->success(trans('site.message.add_success'));
             return redirect()->route('deposits.index');

@@ -70,7 +70,7 @@
                                                         <input class="form-control" type="text" id="electric-input" name="electric"
                                                                hidden readonly>
                                                         <input class="form-control" type="text" id="electric-price"
-                                                               value="3500" hidden readonly>
+                                                               value="<?php echo e($services[0]->price); ?>" hidden readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,7 +104,7 @@
                                                         <input class="form-control" type="text" id="water-input" name="water"
                                                                hidden readonly>
                                                         <input class="form-control" type="text" id="water-price"
-                                                               value="3500" hidden readonly>
+                                                               value="<?php echo e($services[1]->price); ?>" hidden readonly>
                                                     </div>
                                                 </div>
                                             </div>

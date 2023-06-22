@@ -41,9 +41,9 @@ class AppointmentController extends BaseAdminController
 
     public function store(AppointmentRequest $request, Appointment $appointment)
     {
-        $this->syncRequest($request, $appointment);
         DB::beginTransaction();
         try {
+            $this->syncRequest($request, $appointment);
             DB::commit();
             toastr()->success(trans('site.message.add_success'));
             return redirect()->route('appointments.index');
