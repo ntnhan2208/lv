@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('web/layouts/header')
+<?php echo $__env->make('web/layouts/header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <body>
-@include('web/layouts/menu/menu')
+<?php echo $__env->make('web/layouts/menu/menu', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-<div class="hero-wrap" style="background-image:url('{{asset('frontend/images/canho/3.jpg')}}');">
+<div class="hero-wrap" style="background-image:url('<?php echo e(asset('frontend/images/canho/3.jpg')); ?>');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
@@ -20,27 +20,27 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="row">
-                    @foreach($rooms as $room)
+                    <?php $__currentLoopData = $rooms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $room): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="col-sm col-md-6 col-lg-4 ftco-animate ">
                             <div class="room">
-                                <a href="{{route('web_rooms.show',$room->id)}}"
+                                <a href="<?php echo e(route('web_rooms.show',$room->id)); ?>"
                                    class="img d-flex justify-content-center align-items-center border-radius-15-top"
-                                   style="background-image: url({{$room->image}});">
+                                   style="background-image: url(<?php echo e($room->image); ?>);">
                                     <div class="icon d-flex justify-content-center align-items-center">
                                         <span class="icon-search2"></span>
                                     </div>
                                 </a>
                                 <div class="text p-3 text-center border-radius-15-bottom">
-                                    <h3 class="mb-3"><a href="rooms-single.html">{{$room->name}}</a></h3>
-                                    <p><span class="price mr-2">@money($room->price)</span></p>
+                                    <h3 class="mb-3"><a href="rooms-single.html"><?php echo e($room->name); ?></a></h3>
+                                    <p><span class="price mr-2"><?php echo  number_format($room->price, 0). '&#8363'; ?></span></p>
                                     <ul class="list">
-                                        <li><span>Số người:</span> {{$room->amount}}</li>
-                                        <li><span>Loại phòng:</span> {{$room->type->name}}</li>
+                                        <li><span>Số người:</span> <?php echo e($room->amount); ?></li>
+                                        <li><span>Loại phòng:</span> <?php echo e($room->type->name); ?></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 </div>
 
@@ -49,7 +49,7 @@
     </div>
 </section>
 
-@include('web/layouts/footer')
+<?php echo $__env->make('web/layouts/footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
 
@@ -63,7 +63,8 @@
 </div>
 
 
-@include('web/layouts/script')
+<?php echo $__env->make('web/layouts/script', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 </body>
 </html>
+<?php /**PATH D:\DEV\luanvan\resources\views/web/search-result.blade.php ENDPATH**/ ?>
