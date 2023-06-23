@@ -32,7 +32,7 @@ class BillController extends BaseAdminController
     public function create($id)
     {
         $room = $this->room->find($id);
-        $bookingOfRoom = $room->booking->first();
+        $bookingOfRoom = $this->booking->where('room_id',$id)->first();
         $services = $bookingOfRoom->services()->get();
 
         return view('admin.bills.add', compact('services','bookingOfRoom'));
@@ -41,11 +41,10 @@ class BillController extends BaseAdminController
 
     public function store(BillRequest $request, $id, Bill $bill)
     {
-        $this->syncRequest($request, $bill);
-        DB::commit();
-
         DB::beginTransaction();
         try {
+            $this->syncRequest($request, $bill);
+            DB::commit();
             toastr()->success(trans('site.message.add_success'));
             return redirect()->route('room-booked');
 
@@ -65,7 +64,7 @@ class BillController extends BaseAdminController
     }
 
 
-    public function update(BillRequest $request, $id)
+    public function update(Request $request, $id)
     {
         DB::beginTransaction();
         try {
