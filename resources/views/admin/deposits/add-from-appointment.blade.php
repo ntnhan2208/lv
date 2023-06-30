@@ -33,9 +33,9 @@
                                 <div class="form-group">
                                     <label>Phòng cọc</label>
                                     <select class="custom-select custom-select-sm form-control form-control-sm"
-                                            name="room_id">
+                                            id="room" name="room_id" style="pointer-events: none">
                                         @foreach($rooms as $room)
-                                            <option value="{{$room->id}}"
+                                            <option value="{{$room->id}}" data-price="{{$room->price}}"
                                                     {{$appointment->room_id == $room->id ? 'selected':''}}>{{$room->name}}</option>
                                         @endforeach
                                     </select>
@@ -87,6 +87,15 @@
                                 </div>
                             </div>
 
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Số tiền cần đặt cọc của căn hộ</label>
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" name="total"
+                                               value="{{$appointment->room->price}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Số tiền cọc</label>

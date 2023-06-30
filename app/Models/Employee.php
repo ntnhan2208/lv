@@ -27,6 +27,11 @@ class Employee extends Model
     {
         return $this->hasOne(Appointment::class);
     }
+
+    public function employeesCommissions()
+    {
+        return $this->hasMany(EmployeesComission::class);
+    }
     public function scopeSearch($query)
     {
         if ($key = request()->key) {

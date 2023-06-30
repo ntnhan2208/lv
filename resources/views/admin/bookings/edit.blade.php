@@ -171,7 +171,7 @@
                                     <label>{{ trans('site.booking.paid') }} </label>
                                     <div class="input-group">
                                         <select name="paid"
-                                                class="custom-select custom-select-sm form-control form-control-sm">
+                                                class="custom-select custom-select-sm form-control form-control-sm" {{$booking->paid == 1 ? "style=pointer-events:none":''}}>
                                             @foreach(config('system.paid') as $k => $v)
                                                 <option value="{{ $k }}"
                                                         @if($booking->paid == $k) selected @endif>{{ $v }}</option>

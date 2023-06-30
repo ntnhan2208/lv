@@ -71,6 +71,13 @@
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                             </div>
+                                            <div class="float-right">
+                                                <!-- Button trigger modal -->
+                                                <button class="btn btn-xs btn-primary mr-3" style="color: white"
+                                                   onclick="show({{$employee->id}})">
+                                                    Chi tiết tiền hoa hồng
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -82,4 +89,59 @@
             </div>
         </div>
     </div>
+
+    @foreach($employees as $employee)
+        <div class="modal fade" id="myModal-{{$employee->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" role="document" >
+                <div class="modal-content" style="border-radius: 5px;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Chi tiết tiền hoa hồng {{$employee->name}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="tech-companies-1" class="table table-striped mb-0">
+                            <thead>
+                            <tr>
+                                <th data-priority="1" class="text-center"></th>
+                                <th data-priority="1">Thời gian</th>
+                                <th data-priority="1">Phòng</th>
+                                <th data-priority="1">Hoa hồng</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($employee->employeesCommissions()->get() as $value)
+                                <tr>
+                                    <td class="text-center">
+                                        {{ $loop->iteration }}
+                                    </td>
+                                    <td>
+                                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('d/m/Y') }}
+                                    </td>
+                                    <td>
+                                        {{ \App\Models\Room::find($value->room_id)->name }}
+                                    </td>
+                                    <td>
+                                        @money($value->commission)
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+@endsection
+@section('script')
+    <script>
+        function show(id){
+            $('#myModal-'+id).modal('show');
+        }
+    </script>
 @endsection

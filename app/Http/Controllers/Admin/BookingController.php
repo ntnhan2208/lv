@@ -8,6 +8,8 @@ use App\Models\Appointment;
 use App\Models\Booking;
 use App\Models\Customer;
 use App\Models\Deposits;
+use App\Models\Employee;
+use App\Models\EmployeesComission;
 use App\Models\Room;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class BookingController extends BaseAdminController
 {
-    public function __construct(Room $room, Booking $booking, Service $service, Customer $customer, Appointment $appointment, Deposits $deposits)
+    public function __construct(Room $room, Booking $booking, Service $service, Customer $customer, Appointment $appointment, Deposits $deposits, EmployeesComission $comission, Employee $employee)
     {
         $this->booking = $booking;
         $this->room = $room;
@@ -24,6 +26,8 @@ class BookingController extends BaseAdminController
         $this->customer = $customer;
         $this->appointment = $appointment;
         $this->deposits = $deposits;
+        $this->commission = $comission;
+        $this->employee = $employee;
         parent::__construct();
     }
 
@@ -60,7 +64,7 @@ class BookingController extends BaseAdminController
         return view('admin.bookings.add', compact('rooms', 'services'));
     }
 
-    public function store(BookingRequest $request, Booking $booking, Customer $customer)
+    public function store(Request $request, Booking $booking, Customer $customer)
     {
         $this->syncRequest($request, $booking, $customer);
         DB::commit();
@@ -162,7 +166,7 @@ class BookingController extends BaseAdminController
 
     public function syncRequest($request, Booking $booking, Customer $customer)
     {
-        //        create new customer
+        // create new customer
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
         $customer->phone = $request->input('phone');
@@ -171,7 +175,7 @@ class BookingController extends BaseAdminController
         $customer->admin_id = Auth::user()->id;
         $customer->save();
 
-//        create booking
+        // create booking
         $booking->request = $request->input('request');
         $booking->date_start = $request->input('date_start');
         $booking->date_end = $request->input('date_end');
@@ -185,26 +189,55 @@ class BookingController extends BaseAdminController
         $booking->admin_id = Auth::user()->id;
         $booking->save();
 
+
+
         $phone = $this->customer->find($booking->customer_id)->phone;
+
+        // lịch hẹn
         $appointment = $this->appointment->where(['phone' => $phone, 'room_id' => $booking->room_id])->first();
+        $otherAppointment = $this->appointment->where('room_id', $booking->room_id)->where('phone','<>',$phone)->get();
+        foreach ($otherAppointment as $other){
+            $this->appointment->where(['phone' => $other->phone, 'room_id' => $booking->room_id])->update(['status'=>4]) ;
+        }
+
         if($appointment){
             $this->appointment->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>3]) ;
+
+            //hoa hồng
+            $employeeOfBooking = $appointment->employee_id;
+            $employee = $this->employee->find($appointment->employee_id);
+            if($employee){
+                $commission = ($booking->total_room * $employee->commission)/100;
+                $this->commission->create(
+                    [
+                        'employee_id' => $appointment->employee_id,
+                        'room_id' => $booking->room_id,
+                        'commission' => $commission
+                    ]
+                );
+            }
+
+        }
+
+        // cọc
+        $otherDepositses = $this->deposits->where('room_id', $booking->room_id)->where('type',0)->where('phone','<>',$phone)->get();
+        foreach ($otherDepositses as $otherDeposits){
+            $this->deposits->where(['phone' => $otherDeposits->phone, 'room_id' => $booking->room_id])->update(['status'=>1]) ;
         }
         $deposits = $this->deposits->where(['phone' => $phone, 'room_id' => $booking->room_id])->first();
         if($deposits){
             $this->deposits->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>1]) ;
         }
 
-//        revert booked in room
+
+
+        // revert booked in room
         $current_booking = $this->booking->find($booking->id);
         $current_booking->services()->sync($request->input('services'));
 
+        // update booked phòng
         $room = $current_booking->room()->find($booking->room_id);
-        if ($booking->paid == 0) {
-            $room->booked = 1;
-        } else {
-            $room->booked = 0;
-        }
+        $room->booked = 1;
         $room->save();
     }
 

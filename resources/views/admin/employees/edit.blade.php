@@ -96,7 +96,7 @@
                                 <div class="form-group">
                                     <label>Phần trăm hoa hồng</label>
                                     <div class="input-group">
-                                        <input type="text" id="example-input1-group1" name="commission"
+                                        <input type="text" id="commission" name="commission"
                                                class="form-control"
                                                value="{{$employee->commission}}">
                                     </div>
@@ -116,5 +116,16 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $('#commission').on('keyup', function (){
+            var percent = $('#commission').val();
+            if(percent>100){
+                alert('Phần trăm hoa hồng không được lớn hơn 100%');
+                $('#commission').val(20);
+            }
+        });
+    </script>
 @endsection
 

@@ -31,6 +31,7 @@
                                 <tr>
                                     <th data-priority="1" class="text-center"></th>
                                     <th data-priority="1">{{ trans('site.customer.name') }}</th>
+                                    <th data-priority="1">Căn hộ</th>
                                     <th data-priority="1">{{ trans('site.customer.phone') }}</th>
                                     <th data-priority="1">{{ trans('site.customer.personal_id') }}</th>
                                     <th data-priority="1">
@@ -42,6 +43,7 @@
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td>{{ $customer->name }}</td>
+                                        <td>{{ $customer->room->name }}</td>
                                         <td>{{ $customer->phone }}</td>
                                         <td>{{ $customer->personal_id}}</td>
                                         <td class="text-right">

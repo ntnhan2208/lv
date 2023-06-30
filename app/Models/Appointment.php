@@ -27,5 +27,12 @@ class Appointment extends Model
         return $this->belongsTo(Employee::class);
     }
 
-
+    public function checkAppointment($roomId){
+        $appointmentOfRooms = self::where('room_id', $roomId)->get();
+        if($appointmentOfRooms){
+            foreach ($appointmentOfRooms as $appointmentOfRoom){
+                self::where('room_id', $roomId)->where('status','<>',2)->update(['status' => 4]);
+            }
+        }
+    }
 }

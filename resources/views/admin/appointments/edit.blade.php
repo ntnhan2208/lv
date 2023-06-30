@@ -85,7 +85,7 @@
                                             @foreach(config('system.appointment') as $k=>$v)
                                                 @if(in_array($k,[0,1,4]))
                                                     <option value="{{$k}}"
-                                                            {{$k == $appointment->status ? 'selected':''}}>{{$v}}</option>
+                                                            {{$k == $appointment->status ? 'selected':''}} {{$k < $appointment->status ? 'disabled':''}}>{{$v}}</option>
                                                 @endif
 
                                             @endforeach

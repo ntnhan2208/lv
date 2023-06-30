@@ -9,6 +9,7 @@ use App\Models\Deposits;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Routing\Route;
 
 class DepositsController extends BaseAdminController
 {
@@ -28,12 +29,21 @@ class DepositsController extends BaseAdminController
 
     public function create()
     {
+        $checkEmptyRoom = $this->room->checkEmptyRoom();
+        if(!$checkEmptyRoom){
+            toastr()->error(trans('Đã hết phòng trống'));
+            return back();
+        }
         $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
         return view('admin.deposits.add', compact('rooms'));
     }
 
     public function store(DepositsRequest $request, deposits $deposits)
     {
+        if($request->type == 0 && $request->price > $request->total){
+            toastr()->error(trans('Số tiền cọc giữ chỗ không được lớn hơn số tiền cần cọc căn hộ'));
+            return back();
+        }
         DB::beginTransaction();
         try {
             $this->syncRequest($request, $deposits);
@@ -107,13 +117,16 @@ class DepositsController extends BaseAdminController
         $deposits->room_id = $request->input('room_id');
         $deposits->status = $request->input('status') <> 0 ? $request->input('status') : 0;
         $deposits->save();
-
-
         //cập nhật lại status thành đặt cọc
         $appointment = $this->appointment->where(['phone' => $deposits->phone, 'room_id' => $deposits->room_id])->first();
         if($appointment){
            $this->appointment->where(['phone' => $deposits->phone, 'room_id' => $deposits->room_id])->update(['status'=>2]) ;
         }
+        $otherAppointment = $this->appointment->where('room_id', $deposits->room_id)->where('phone','<>',$deposits->phone)->get();
+        foreach ($otherAppointment as $other){
+            $this->appointment->where(['phone' => $other->phone, 'room_id' => $deposits->room_id])->update(['status'=>4]) ;
+        }
+        $this->appointment->checkAppointment($deposits->room_id);
         $this->room->where(['id' => $deposits->room_id])->update(['booked'=>1]) ;
     }
 }

@@ -25,7 +25,7 @@ return [
         '1' => 'Đã gặp khách',
         '2' => 'Đã đặt cọc',
         '3' => 'Hợp đồng mới',
-        '4' => 'Hủy hẹn'
+        '4' => 'Hủy hẹn',
     ],
     'deposits' => [
         '0' => 'Cọc giữ chỗ',

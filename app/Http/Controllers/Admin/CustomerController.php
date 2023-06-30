@@ -20,7 +20,7 @@ class CustomerController extends BaseAdminController
 
     public function index()
     {
-        $customers = $this->customer->search()->get();
+        $customers = $this->customer->search()->orderBy('room_id','asc')->get();
         return view('admin.customers.index', compact('customers'));
     }
 
