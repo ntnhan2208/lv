@@ -162,6 +162,17 @@
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
+                                    <label>Tổng tiền nợ</label>
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" id="indebt-show"
+                                               value=" " readonly>
+                                        <input class="form-control" type="text" id="indebt"
+                                               value="{{$inDebt}}" hidden readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
                                     <label>Số tiền cần thanh toán</label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" id="total"
@@ -220,6 +231,9 @@
 
             var total = $("#total-input").val();
             $("#total").val(numberToCurrency(total));
+
+            var indebt = $('#indebt').val();
+            $('#indebt-show').val(numberToCurrency(indebt));
 
         }
 

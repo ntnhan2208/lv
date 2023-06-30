@@ -33,9 +33,17 @@ class BillController extends BaseAdminController
     {
         $room = $this->room->find($id);
         $bookingOfRoom = $this->booking->where('room_id',$id)->first();
+        $inDebt = $bookingOfRoom->paid == 0 ? $bookingOfRoom->total_price : 0;
+        $bills = $this->bill->where('booking_id', $bookingOfRoom->id)->get();
+        foreach ($bills as $bill){
+            if($bill->status == 0){
+                $inDebt += $bill->total;
+            }
+        }
+
         $services = $bookingOfRoom->services()->get();
 
-        return view('admin.bills.add', compact('services','bookingOfRoom'));
+        return view('admin.bills.add', compact('services','bookingOfRoom', 'inDebt'));
     }
 
 
@@ -60,7 +68,17 @@ class BillController extends BaseAdminController
     public function edit($id)
     {
         $bill= $this->bill->find($id);
-        return view('admin.bills.edit', compact('bill'));
+        $room = $bill->booking->room_id;
+        $bookingOfRoom = $this->booking->where('room_id',$room)->first();
+        $inDebt = $bookingOfRoom->paid == 0 ? $bookingOfRoom->total_price : 0;
+        $bills = $this->bill->where('booking_id', $bookingOfRoom->id)->where('id','<>',$id)->get();
+        foreach ($bills as $bill){
+            if($bill->status == 0){
+                $inDebt += $bill->total;
+            }
+        }
+
+        return view('admin.bills.edit', compact('bill','inDebt'));
     }
 
 
@@ -70,6 +88,12 @@ class BillController extends BaseAdminController
         try {
             DB::commit();
             $this->bill->where('id',$id)->update(['status'=> $request->status]);
+
+            if($request->status == 1){
+                $bill = $this->bill->where('id',$id)->first();
+                $bill->booking->update(['paid'=> 1]);
+            }
+
             toastr()->success(trans('site.message.update_success'));
             return redirect()->route('room-booked');
             return redirect()->route('room-booked');
@@ -98,5 +122,9 @@ class BillController extends BaseAdminController
         $bill->new_water = $request->input('new_water');
         $bill->water = $request->input('water');
         $bill->save();
+        if($request->status == 1){
+            $newBill = $this->bill->where('id',$bill->id)->first();
+            $newBill->booking->update(['paid'=> 1]);
+        }
     }
 }

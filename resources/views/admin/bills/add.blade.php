@@ -171,6 +171,17 @@
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
+                                    <label>Tổng tiền nợ</label>
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" id="indebt-show"
+                                               value=" " readonly>
+                                        <input class="form-control" type="text" id="indebt"
+                                               value="{{$inDebt}}" hidden readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
                                     <label>Số tiền cần thanh toán</label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" id="total"
@@ -217,6 +228,9 @@
             e.preventDefault();
             var room = $('#total_room_input').val();
             $('#total_room').val(numberToCurrency(room));
+
+            var indebt = $('#indebt').val();
+            $('#indebt-show').val(numberToCurrency(indebt));
         }
         //điện
         $(document).on('change', '#new_electric', function (e) {
@@ -264,15 +278,16 @@
            var room = $("#total_room_input").val();
            var electric = $("#electric-input").val();
            var water = $("#water-input").val();
+           var indebt = $('#indebt').val();
            var service = 0;
            $('input[type="text"].service-input').each(function () {
                service += $(this).val()*1;
            });
-           $("#total_service_input").val(electric*1 + water*1 +service*1);
-           $("#total_service").val(numberToCurrency((electric*1 + water*1 +service*1)));
+           $("#total_service_input").val(electric*1 + water*1 +service*1 + indebt*1);
+           $("#total_service").val(numberToCurrency((electric*1 + water*1 +service*1 + indebt*1)));
 
-           $("#total-input").val(room*1+electric*1 + water*1 +service*1);
-           $("#total").val(numberToCurrency((room*1+electric*1 + water*1 +service*1)));
+           $("#total-input").val(room*1+electric*1 + water*1 +service*1 + indebt*1);
+           $("#total").val(numberToCurrency((room*1+electric*1 + water*1 +service*1 + indebt*1)));
        }
 
         function currencyToNumber(currency) {

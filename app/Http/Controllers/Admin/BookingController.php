@@ -64,7 +64,7 @@ class BookingController extends BaseAdminController
         return view('admin.bookings.add', compact('rooms', 'services'));
     }
 
-    public function store(Request $request, Booking $booking, Customer $customer)
+    public function store(BookingRequest $request, Booking $booking, Customer $customer)
     {
         $this->syncRequest($request, $booking, $customer);
         DB::commit();

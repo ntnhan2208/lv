@@ -41,7 +41,7 @@
                                             {{ $bill->deadline }}
                                         </td>
                                         <td>
-                                            {{ $bill->total }}
+                                            @money($bill->total)
                                         </td>
                                         <td>
                                             <span class="badge badge-soft-{{ $bill->status == 1 ? 'success' : 'danger'}}">{{ config('system.paid')[$bill->status] }}</span>

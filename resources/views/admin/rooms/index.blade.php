@@ -31,6 +31,7 @@
                                         <tr>
                                             <th></th>
                                             <th data-priority="1">{{trans('site.room.image')}}</th>
+                                            <th data-priority="1">Loại</th>
                                             <th data-priority="1">{{trans('site.room.name')}}</th>
                                             <th data-priority="1">{{trans('site.room.amount')}}</th>
                                             <th data-priority="1">{{trans('site.room.acreage')}}</th>
@@ -47,6 +48,9 @@
                                                 </td>
                                                 <td>
                                                     <img src="{{ Sanitize::showImage($room->image) }}" width="100"/>
+                                                </td>
+                                                <td>
+                                                    {{$room->type->name}}
                                                 </td>
                                                 <td>
                                                     {{$room->name}}
