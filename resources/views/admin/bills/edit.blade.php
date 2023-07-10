@@ -141,7 +141,7 @@
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label>Tiền thuê căn hộ</label>
+                                    <label>Tiền thuê Căn hộ</label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" id="total_room" readonly>
                                         <input class="form-control" type="text" id="total_room_input" name="total_room"
@@ -202,7 +202,7 @@
                             <i class="mdi mdi-plus-circle-outline mr-2"></i>
                             Cập nhật
                         </button>
-                        <a href="{{ route('room-booked') }}">
+                        <a href="{{ url()->previous() }}">
                             <button type="button" class="btn btn-danger ml-2
                     px-4 mb-3 mt-2"><i class="fas fa-window-close"></i> {{trans('site.reset') }} </button>
                         </a>

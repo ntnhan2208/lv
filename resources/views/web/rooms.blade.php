@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
             <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center text">
-                <h1 class="mb-4 bread">Danh sách căn hộ</h1>
+                <h1 class="mb-4 bread">Danh sách Căn hộ</h1>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
                                     <p><span class="price mr-2">@money($room->price)</span></p>
                                     <ul class="list">
                                         <li><span>Số người:</span> {{$room->amount}}</li>
-                                        <li><span>Loại căn hộ:</span> {{$room->type->name}}</li>
+                                        <li><span>Loại Căn hộ:</span> {{$room->type->name}}</li>
                                     </ul>
                                 </div>
                             </div>

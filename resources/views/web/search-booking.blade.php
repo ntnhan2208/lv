@@ -12,7 +12,7 @@
         <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
             <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
                 <div class="text">
-                    <h1 class="mb-4 bread">Tra cứu đặt phòng</h1>
+                    <h1 class="mb-4 bread">Tra cứu đặt Căn hộ</h1>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 {!! NoCaptcha::renderJs() !!}
                 <form action="{{route('search_boking_result')}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <h3 class="mb-4">Vui lòng nhập số điện thoại đang đặt phòng</h3>
+                    <h3 class="mb-4">Vui lòng nhập số điện thoại đang đặt Căn hộ</h3>
                     <div class="form-group col-lg-12">
                         @if(session()->has('message'))
                             <div class="alert alert-success">

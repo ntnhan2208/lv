@@ -5,7 +5,7 @@
             <div class="row mt-2">
                 <div class="col-lg-12">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li><a class="nav-link active" href="#all" role="tab" data-toggle="tab">Quản lý căn hộ</a>
+                        <li><a class="nav-link active" href="#all" role="tab" data-toggle="tab">Quản lý Căn hộ</a>
                         </li>
                         <li><a class="nav-link" href="#empty" role="tab" data-toggle="tab">Căn hộ còn trống</a>
                         </li>

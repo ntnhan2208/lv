@@ -52,7 +52,7 @@ class BookingController extends BaseFEController
         try {
             $this->syncRequest($request, $requestBooking);
             DB::commit();
-            return redirect()->route('web_rooms.index')->with('success', 'Đặt phòng thành công! Nhân viên của khách sạn sẽ chủ động liện hệ với quý khách trong vòng 30 phút nữa để xác nhận và hướng dẫn quý khách thanh toán!');
+            return redirect()->route('web_rooms.index')->with('success', 'Đặt Căn hộ thành công! Nhân viên của khách sạn sẽ chủ động liện hệ với quý khách trong vòng 30 phút nữa để xác nhận và hướng dẫn quý khách thanh toán!');
 
         } catch (\Exception $e) {
             DB::rollback();

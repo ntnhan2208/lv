@@ -3,18 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\EmployeeRequest;
+use App\Models\Admin;
 use App\Models\Employee;
+use App\Models\EmployeesComission;
 use App\Models\Manage;
+use App\Models\Room;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class EmployeeController extends BaseAdminController
 {
     protected $employee;
+    /**
+     * @var Admin
+     */
+    private $admin;
 
-    public function __construct(Employee $employee)
+    public function __construct(Employee $employee, Admin $admin)
     {
         $this->employee = $employee;
+        $this->admin = $admin;
         parent::__construct();
     }
 
@@ -35,6 +44,7 @@ class EmployeeController extends BaseAdminController
         DB::beginTransaction();
         try {
             $this->syncRequest($request, $employee);
+            $this->admin->create($request->all());
             DB::commit();
             toastr()->success(trans('site.message.add_success'));
             return redirect()->route('employees.index');
@@ -60,10 +70,21 @@ class EmployeeController extends BaseAdminController
 
     public function update(EmployeeRequest $request, $id)
     {
+
         DB::beginTransaction();
         try {
             $employee = $this->employee->find($id);
             $this->syncRequest($request, $employee);
+            $admin = Admin::where('personal_id', $employee->personal_id)->first();
+            $admin->update([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'personal_id'=>$request->personal_id,
+                'gender'=>$request->gender,
+                'phone'=>$request->phone,
+                'commission'=>$request->commission,
+                'admin_id'=>Auth::user()->id,
+            ]);
             DB::commit();
             toastr()->success(trans('site.message.update_success'));
             return redirect()->route('employees.index');
@@ -93,5 +114,24 @@ class EmployeeController extends BaseAdminController
         $employee->image = $request->input('image');
         $employee->admin_id = Auth::user()->id;
         $employee->save();
+    }
+
+    public function commission($employeeId){
+        $commission = EmployeesComission::where('employee_id',$employeeId)->get();
+        return view('admin.employees.commission', compact('commission'));
+
+    }
+
+    public function showReadyRoom(){
+        $readyRooms = Room::where('is_enabled', 1)->where('booked', 0)->get();
+        return view('admin.employees.room', compact('readyRooms'));
+    }
+    public function changeStatus(Request $request){
+        $commission = EmployeesComission::find($request->id);
+        if($commission){
+            $commission->update(['status'=>1]);
+            return response()->json(['success' => 'Cập nhật thành công!'], 200);
+        }
+        return response()->json(['error' => 'Lỗi dữ liệu'], 200);
     }
 }

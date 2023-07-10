@@ -22,6 +22,6 @@ class MailNotify extends Mailable
     {
         return $this
             ->view('web.mail')
-            ->subject('ĐẶT PHÒNG THÀNH CÔNG');
+            ->subject('ĐẶT Căn hộ THÀNH CÔNG');
     }
 }

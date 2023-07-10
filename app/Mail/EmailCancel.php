@@ -22,6 +22,6 @@ class EmailCancel extends Mailable
     {
         return $this
             ->view('web.mail-cancel')
-            ->subject('THÔNG BÁO HUỶ ĐẶT PHÒNG');
+            ->subject('THÔNG BÁO HUỶ ĐẶT Căn hộ');
     }
 }

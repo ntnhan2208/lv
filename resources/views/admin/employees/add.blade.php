@@ -102,6 +102,14 @@
                                                value="{{old('commission')}}">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label>{{ trans('site.admin.password') }}  </label>
+                                    <div class="input-group">
+                                        <input type="password" name="password" class="form-control"
+                                               placeholder="{{ trans('site.admin.password') }}">
+                                    </div>
+                                </div>
+                                <input type="text" id="example-input1-group1" name="role" value="1" class="form-control" hidden readonly>
                             </div>
                             <button type="submit" class="btn btn-primary px-4 mb-3 mt-2">
                                 <i class="mdi mdi-plus-circle-outline mr-2"></i>

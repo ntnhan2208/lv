@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>Phòng cọc</label>
+                                    <label>Căn hộ cọc</label>
                                     <select class="custom-select custom-select-sm form-control form-control-sm"
                                             id="room" name="room_id" style="pointer-events: none">
                                         @foreach($rooms as $room)
@@ -89,7 +89,7 @@
 
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>Số tiền cần đặt cọc của căn hộ</label>
+                                    <label>Số tiền cần đặt cọc của Căn hộ</label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" name="total"
                                                value="{{$appointment->room->price}}" readonly>
@@ -112,7 +112,7 @@
                             <i class="mdi mdi-plus-circle-outline mr-2"></i>
                             Đặt cọc
                         </button>
-                        <a href="{{ route('appointments.index') }}">
+                        <a href="{{ route('deposits.index') }}">
                             <button type="button" class="btn btn-danger ml-2
                     px-4 mb-3 mt-2"><i class="fas fa-window-close"></i> {{trans('site.reset') }} </button>
                         </a>

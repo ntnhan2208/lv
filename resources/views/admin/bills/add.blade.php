@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="card mt-3">
                 <div class="card-body shadow-lg bg-white rounded">
-                    <h3>Hóa đơn tiền thuê căn hộ</h3>
+                    <h3>Hóa đơn tiền thuê Căn hộ</h3>
                     <form action="{{route('bill-store',$bookingOfRoom->room->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
@@ -150,7 +150,7 @@
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label>Tiền thuê căn hộ</label>
+                                    <label>Tiền thuê Căn hộ</label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" id="total_room" readonly>
                                         <input class="form-control" type="text" id="total_room_input" name="total_room"
@@ -211,7 +211,7 @@
                             <i class="mdi mdi-plus-circle-outline mr-2"></i>
                             Lập hóa đơn
                         </button>
-                        <a href="{{ route('customers.index') }}">
+                        <a href="{{ url()->previous() }}">
                             <button type="button" class="btn btn-danger ml-2
                     px-4 mb-3 mt-2"><i class="fas fa-window-close"></i> {{trans('site.reset') }} </button>
                         </a>
@@ -284,7 +284,7 @@
                service += $(this).val()*1;
            });
            $("#total_service_input").val(electric*1 + water*1 +service*1 + indebt*1);
-           $("#total_service").val(numberToCurrency((electric*1 + water*1 +service*1 + indebt*1)));
+           $("#total_service").val(numberToCurrency((electric*1 + water*1 +service*1)));
 
            $("#total-input").val(room*1+electric*1 + water*1 +service*1 + indebt*1);
            $("#total").val(numberToCurrency((room*1+electric*1 + water*1 +service*1 + indebt*1)));

@@ -23,20 +23,20 @@
         <div class="row d-flex mb-5 contact-info">
             <div class="w-100"></div>
             <div class="col-lg-12">
-                <h5>THÔNG TIN ĐƠN ĐẶT PHÒNG</h5>
+                <h5>THÔNG TIN ĐƠN ĐẶT Căn hộ</h5>
                 @foreach($bookings as $booking)
                     <div class="col-sm col-md-6 col-lg-4 ftco-animate ">
                         <h6>-Khách hàng: {{$customer->name}}</h6>
                         <h6>-SĐT: {{$customer->phone}}</h6>
                         <h6 hidden>-Email: <span id="email">{{$customer->email}}</span></h6>
                         <h6>-Email: <span id="show-email"></span></h6>
-                        <h6>-Phòng đặt: {{$booking->room->name}}</h6>
+                        <h6>-Căn hộ đặt: {{$booking->room->name}}</h6>
                         <h6>Dịch vụ:</h6>
                         @foreach($booking->services()->get() as $service)
                             <h7>- {{$service->name}}</h7>
                         @endforeach
                         <form class="form-inline" onsubmit="openModal()" id="myForm">
-                            <button type="submit" class="btn btn-primary">Huỷ đặt phòng</button>
+                            <button type="submit" class="btn btn-primary">Huỷ đặt Căn hộ</button>
                         </form>
                     </div>
                     <hr>
@@ -50,7 +50,7 @@
                                     <span aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
-                                <p>Nhập email để huỷ đặt phòng</p>
+                                <p>Nhập email để huỷ đặt Căn hộ</p>
                                 <input id="i" type="text" class="form-control">
 
                             </div>
@@ -60,7 +60,7 @@
                                       onsubmit="return check();" method="post">
                                     {{ method_field('PUT') }}
                                     {{ csrf_field() }}
-                                    <button id="b" type="submit" class="btn btn-xs btn-danger">Huỷ đặt phòng<i
+                                    <button id="b" type="submit" class="btn btn-xs btn-danger">Huỷ đặt Căn hộ<i
                                             class="fas fa-trash"></i>
                                     </button>
                                 </form>

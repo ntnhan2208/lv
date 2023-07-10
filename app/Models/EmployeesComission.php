@@ -10,7 +10,7 @@ class EmployeesComission extends Model
     use HasFactory;
 
     protected $table = 'employees_comission';
-    protected $fillable = ['employee_id','room_id','commission'];
+    protected $fillable = ['employee_id','room_id','commission','status'];
 
     public function employee()
     {

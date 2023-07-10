@@ -29,7 +29,7 @@
                         <div class="block-18 text-center">
                             <div class="text">
                                 <strong class="number">{{$rooms}}</strong>
-                                <span>Phòng</span>
+                                <span>Căn hộ</span>
                             </div>
                         </div>
                     </div>

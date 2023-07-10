@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Phòng xem</label>
+                                            <label>Căn hộ xem</label>
                                             <select class="custom-select custom-select-sm form-control form-control-sm"
                                                     id="price" name="room_id">
                                                 @foreach($rooms as $room)

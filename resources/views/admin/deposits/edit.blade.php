@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>Phòng cọc</label>
+                                    <label>Căn hộ cọc</label>
                                     <select class="custom-select custom-select-sm form-control form-control-sm"
                                             name="room_id" style="pointer-events: none">
                                         @foreach($rooms as $room)
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ route('appointments.index') }}">
+                        <a href="{{ route('deposits.index') }}">
                             <button type="button" class="btn btn-danger ml-2
                     px-4 mb-3 mt-2"><i class="fas fa-window-close"></i> Quay về</button>
                         </a>

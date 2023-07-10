@@ -40,7 +40,7 @@
                             <i class="mdi mdi-plus-circle-outline mr-2"></i>
                             {{ trans('site.button_update') }}
                         </button>
-                        <a href="{{ route('customers.index') }}">
+                        <a href="{{ url()->previous() }}">
                             <button type="button" class="btn btn-danger ml-2
                     px-4 mb-3 mt-2"><i class="fas fa-window-close"></i> {{trans('site.reset') }} </button>
                         </a>

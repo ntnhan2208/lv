@@ -3,7 +3,7 @@
         <div class="row mb-5">
             <div class="col-md">
                 <div class="ftco-footer-widget mb-6">
-                    <h2 class="ftco-heading-2">CĂN HỘ CHO THUÊ</h2>
+                    <h2 class="ftco-heading-2">Căn hộ CHO THUÊ</h2>
                     <p>Mang đến cho bạn những trải nghiệm tốt nhất.</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                         <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>

@@ -56,7 +56,7 @@ class BookingController extends BaseAdminController
     {
         $checkEmptyRoom = $this->room->checkEmptyRoom();
         if(!$checkEmptyRoom){
-            toastr()->error(trans('Đã hết phòng trống'));
+            toastr()->error(trans('Đã hết Căn hộ trống'));
             return back();
         }
         $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
@@ -64,7 +64,7 @@ class BookingController extends BaseAdminController
         return view('admin.bookings.add', compact('rooms', 'services'));
     }
 
-    public function store(BookingRequest $request, Booking $booking, Customer $customer)
+    public function store(Request $request, Booking $booking, Customer $customer)
     {
         $this->syncRequest($request, $booking, $customer);
         DB::commit();
@@ -82,7 +82,7 @@ class BookingController extends BaseAdminController
     public function addBookingFromAppointment($id){
         $checkEmptyRoom = $this->room->checkEmptyRoom();
         if(!$checkEmptyRoom){
-            toastr()->error(trans('Đã hết phòng trống'));
+            toastr()->error(trans('Đã hết Căn hộ trống'));
             return back();
         }
         $appointment = $this->appointment->find($id);
@@ -235,7 +235,7 @@ class BookingController extends BaseAdminController
         $current_booking = $this->booking->find($booking->id);
         $current_booking->services()->sync($request->input('services'));
 
-        // update booked phòng
+        // update booked Căn hộ
         $room = $current_booking->room()->find($booking->room_id);
         $room->booked = 1;
         $room->save();

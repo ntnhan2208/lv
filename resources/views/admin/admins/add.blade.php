@@ -101,17 +101,18 @@
                                                placeholder="{{ trans('site.admin.password') }}">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>{{ trans('site.admin.role') }}  </label>
-                                    <div class="input-group">
-                                        <select name="role"
-                                                class="custom-select custom-select-sm form-control form-control-sm">
-                                            @foreach(config('system.role') as $k => $v)
-                                                <option value="{{ $k }}" {{old('role')==$k ? 'selected':''}}>{{ $v }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+                                <input type="text" id="example-input1-group1" name="role" class="form-control">
+{{--                                <div class="form-group">--}}
+{{--                                    <label>{{ trans('site.admin.role') }}  </label>--}}
+{{--                                    <div class="input-group">--}}
+{{--                                        <select name="role"--}}
+{{--                                                class="custom-select custom-select-sm form-control form-control-sm">--}}
+{{--                                            @foreach(config('system.role') as $k => $v)--}}
+{{--                                                <option value="{{ $k }}" {{old('role')==$k ? 'selected':''}}>{{ $v }}</option>--}}
+{{--                                            @endforeach--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                             </div>
                         </div>
 

@@ -27,6 +27,9 @@ Route::namespace('admin')->group(function () {
             Route::post('update_password', 'AdminController@updatePassword')->name('update_password');
             Route::resource('/admins', 'AdminController');
             Route::resource('/employees', 'EmployeeController');
+            Route::post('/employees-changes-status-commission', 'EmployeeController@changeStatus');
+            Route::get('/employee-commission/{id}', 'EmployeeController@commission')->name('employee_commission');
+            Route::get('/employee-ready-room', 'EmployeeController@showReadyRoom')->name('employee_ready_room');
 
             Route::resource('/bookings', 'BookingController');
 

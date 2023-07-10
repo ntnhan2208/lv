@@ -84,7 +84,7 @@ class RoomController extends BaseAdminController
     {
         $room = $this->room->find($id);
         if ($room->booking()->exists()) {
-            toastr()->error('Đang có đơn hàng đặt phòng này. Không thể xoá!');
+            toastr()->error('Đang có đơn hàng đặt Căn hộ này. Không thể xoá!');
         } else {
             $room->delete();
             toastr()->success(trans('site.message.delete_success'));

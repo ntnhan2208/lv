@@ -18,6 +18,7 @@ class CreateEmployeeCommissionTable extends Migration
             $table->foreignId('employee_id')->unsigned()->nullable()->constrained('employees');
             $table->integer('room_id');
             $table->decimal('commission',9,2);
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

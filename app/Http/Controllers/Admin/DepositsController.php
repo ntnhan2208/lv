@@ -31,7 +31,7 @@ class DepositsController extends BaseAdminController
     {
         $checkEmptyRoom = $this->room->checkEmptyRoom();
         if(!$checkEmptyRoom){
-            toastr()->error(trans('Đã hết phòng trống'));
+            toastr()->error(trans('Đã hết Căn hộ trống'));
             return back();
         }
         $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
@@ -41,7 +41,7 @@ class DepositsController extends BaseAdminController
     public function store(DepositsRequest $request, deposits $deposits)
     {
         if($request->type == 0 && $request->price > $request->total){
-            toastr()->error(trans('Số tiền cọc giữ chỗ không được lớn hơn số tiền cần cọc căn hộ'));
+            toastr()->error(trans('Số tiền cọc giữ chỗ không được lớn hơn số tiền cần cọc Căn hộ'));
             return back();
         }
         DB::beginTransaction();
@@ -97,7 +97,7 @@ class DepositsController extends BaseAdminController
     public function addDepositsFromAppointment($id){
         $checkEmptyRoom = $this->room->checkEmptyRoom();
         if(!$checkEmptyRoom){
-            toastr()->error(trans('Đã hết phòng trống'));
+            toastr()->error(trans('Đã hết Căn hộ trống'));
             return back();
         }
         $appointment = $this->appointment->find($id);

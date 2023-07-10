@@ -12,7 +12,7 @@
         <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
             <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
                 <div class="text">
-                    <h1 class="mb-4 bread">Chi tiết căn hộ</h1>
+                    <h1 class="mb-4 bread">Chi tiết Căn hộ</h1>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                             <div class="sidebar-box ftco-animate">
                                 <div class="categories">
                                     <li><p>{{$room->description}}</p></li>
-                                    <li>Loại căn hộ: </span>{{$room->type->name}}</li>
+                                    <li>Loại Căn hộ: </span>{{$room->type->name}}</li>
                                     <li>Số người: </span>{{$room->amount}}</li>
                                     <li>Giá: @money($room->price)</li>
                                 </div>
@@ -46,7 +46,7 @@
 
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            Đặt lịch hẹn xem căn hộ
+                            Đặt lịch hẹn xem Căn hộ
                         </button>
 
                         <!-- Modal -->
@@ -57,7 +57,7 @@
             <div class="col-lg-4">
                 <div class="sidebar-box ftco-animate">
                     <div class="categories">
-                        <h3>Loại căn hộ</h3>
+                        <h3>Loại Căn hộ</h3>
                         @foreach($types as $type)
                             <li><a href="{{route('show_room_type',$type->id)}}">{{$type->name}}<span>({{$type->rooms()->where('is_enabled', 1)->where('booked', 0)->count()}})</span></a>
                             </li>
@@ -85,7 +85,7 @@
                                     <p><span class="price mr-2">@money($available->price)</span></p>
                                     <hr>
                                     <p class="pt-1"><a href=""
-                                                       class="btn-custom">Chi tiết căn hộ<span
+                                                       class="btn-custom">Chi tiết Căn hộ<span
                                                     class="icon-long-arrow-right"></span></a></p>
                                 </div>
                             </div>

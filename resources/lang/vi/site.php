@@ -41,7 +41,7 @@ return [
         'alias_not_empty' => 'Đường dẫn không được để trống!'
     ],
     'add' => 'Thêm mới',
-    'book' => 'Đặt căn hộ',
+    'book' => 'Đặt Căn hộ',
     'enable' => 'Cho phép',
     'disable' => 'Không cho phép',
     'yes' => 'Có',
@@ -58,7 +58,7 @@ return [
     'icon' => 'Mã icon',
     'slug' => 'Đường dẫn',
     'button_add' => "Thêm mới",
-    'button_book' => "Đặt căn hộ",
+    'button_book' => "Đặt Căn hộ",
     'button_update' => "Cập nhập",
     'button_choose' => "Chọn",
     'button_remove' => "Xóa",
@@ -146,7 +146,7 @@ return [
         ],
     ],
     'booking' => [
-        'title' => 'Quản lý đặt căn hộ',
+        'title' => 'Quản lý đặt Căn hộ',
         'bookings_not_paid' => 'Chưa thanh toán',
         'bookings_paid' => 'Đã thanh toán',
         'bookings_canceled' => 'Đã bị hủy',
@@ -158,23 +158,23 @@ return [
         'request' => 'Yêu cầu',
         'date_start' => 'Ngày nhận',
         'date_end' => 'Ngày trả',
-        'rooms' => 'Danh sách căn hộ',
+        'rooms' => 'Danh sách Căn hộ',
         'services' => 'Danh sách dịch vụ',
         'total' => 'Tổng giá',
-        'total_room' => 'Tổng giá căn hộ',
+        'total_room' => 'Tổng giá Căn hộ',
         'total_service' => 'Tổng giá dịch vụ',
         'paid' => 'Trạng thái thanh toán',
         'customer' => 'Khách thuê',
         'validation' => [
-            'date_start_not_empty' => 'Ngày nhận căn hộ không được để trống',
+            'date_start_not_empty' => 'Ngày nhận Căn hộ không được để trống',
             'date_start_after' => 'Ngày nhận phải bắt đầu từ hôm nay',
-            'date_end_not_empty' => 'Ngày trả căn hộ không được để trống',
-            'date_end_after' => 'Ngày trả căn hộ phải sau ngày nhận căn hộ',
+            'date_end_not_empty' => 'Ngày trả Căn hộ không được để trống',
+            'date_end_after' => 'Ngày trả Căn hộ phải sau ngày nhận Căn hộ',
         ]
 
     ],
     'request_booking' => [
-        'title' => 'Yêu cầu đặt căn hộ',
+        'title' => 'Yêu cầu đặt Căn hộ',
         'request_bookings' => 'Đơn đặt chưa duyệt',
         'request_bookings_confirmed' => 'Đơn đặt đã duyệt'
     ],
@@ -230,37 +230,37 @@ return [
 
     ],
     'room' => [
-        'title' => 'Quản lý căn hộ',
-        'name' => 'Tên căn hộ',
+        'title' => 'Quản lý Căn hộ',
+        'name' => 'Tên Căn hộ',
         'image' => 'Hình ảnh',
         'amount' => 'Số người',
         'acreage' => 'Diện tích(m2)',
         'price' => 'Giá thuê/tháng',
         'status' => 'Trạng thái',
-        'type' => 'Loại căn hộ',
+        'type' => 'Loại Căn hộ',
         'description' => 'Mô tả',
         'is_enabled' => 'Kích hoạt',
         'updated_by' => 'Cập nhật bởi',
         'validation' => [
-            'name_not_empty' => 'Tên căn hộ không được để trống',
-            'name_exist' => 'Tên căn hộ đã tồn tại',
+            'name_not_empty' => 'Tên Căn hộ không được để trống',
+            'name_exist' => 'Tên Căn hộ đã tồn tại',
             'amount_not_empty' => 'Số người không được để trống',
             'amount_not_numeric' => 'Số người phải là một con số',
-            'price_not_empty' => 'Giá căn hộ không được để trống',
-            'price_not_numeric' => 'Giá căn hộ phải là một con số',
-            'description_not_empty' => 'Mô tả căn hộ không được để trống',
+            'price_not_empty' => 'Giá Căn hộ không được để trống',
+            'price_not_numeric' => 'Giá Căn hộ phải là một con số',
+            'description_not_empty' => 'Mô tả Căn hộ không được để trống',
         ]
     ],
     'type' => [
-        'title' => 'Quản lý loại căn hộ',
-        'name' => 'Tên loại căn hộ',
-        'warning' => 'Không thể xoá loại căn hộ vì có căn hộ đang sử dụng',
+        'title' => 'Quản lý loại Căn hộ',
+        'name' => 'Tên loại Căn hộ',
+        'warning' => 'Không thể xoá loại Căn hộ vì có Căn hộ đang sử dụng',
         'description' => 'Mô tả',
         'updated_by' => 'Cập nhật bởi',
         'validation' => [
-            'name_not_empty' => 'Tên loại căn hộ không được để trống',
-            'description_not_empty' => 'Mô tả loại căn hộ không được để trống',
-            'name_exist' => 'Tên loại căn hộ đã tồn tại'
+            'name_not_empty' => 'Tên loại Căn hộ không được để trống',
+            'description_not_empty' => 'Mô tả loại Căn hộ không được để trống',
+            'name_exist' => 'Tên loại Căn hộ đã tồn tại'
         ]
     ],
     'service' => [

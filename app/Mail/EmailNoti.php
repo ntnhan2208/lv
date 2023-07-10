@@ -20,6 +20,6 @@ class EmailNoti extends Mailable
     public function build()
     {
         return $this->view('web.mail-noti')
-            ->subject('THÔNG BÁO SẮP ĐẾN NGÀY NHẬN PHÒNG');
+            ->subject('THÔNG BÁO SẮP ĐẾN NGÀY NHẬN Căn hộ');
     }
 }

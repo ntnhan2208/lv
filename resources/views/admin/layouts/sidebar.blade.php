@@ -1,4 +1,5 @@
 <div class="left-sidenav">
+    @if(\Illuminate\Support\Facades\Auth::user()->role == null)
     <ul class="metismenu left-sidenav-menu">
         <li>
             <a href="javascript: void(0);"><i
@@ -65,4 +66,35 @@
             </a>
         </li>
     </ul>
+    @else
+        @php
+            $employee = \App\Models\Employee::where('personal_id', \Illuminate\Support\Facades\Auth::user()->personal_id)->first();
+        @endphp
+        <ul class="metismenu left-sidenav-menu">
+            <li class="{{ (request()->is('admin/employee_ready_room*')) ? 'mm-active' : '' }}">
+                <a href="{{ route('employee_ready_room') }}">
+                    <i class="ti-bookmark-alt"></i>
+                    <span>Danh sách phòng trống</span>
+                </a>
+            </li>
+            <li class="{{ (request()->is('admin/appointment*')) ? 'mm-active' : '' }}">
+                <a href="{{ route('appointments.index') }}">
+                    <i class="ti-calendar"></i>
+                    <span>Quản lý lịch hẹn</span>
+                </a>
+            </li>
+            <li class="{{ (request()->is('admin/employee-commission*')) ? 'mm-active' : '' }}">
+                <a href="{{ route('employee_commission',$employee->id) }}">
+                    <i class="ti-crown"></i>
+                    <span>Danh sách hoa hồng</span>
+                </a>
+            </li>
+        </ul>
+    @endif
+
 </div>
+<script>
+    function show(id){
+        $('#myModal-'+id).modal('show');
+    }
+</script>

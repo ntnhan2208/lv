@@ -35,7 +35,7 @@
                                     <p><span class="price mr-2">@money($room->price)</span></p>
                                     <ul class="list">
                                         <li><span>Số người:</span> {{$room->amount}}</li>
-                                        <li><span>Loại phòng:</span> {{$room->type->name}}</li>
+                                        <li><span>Loại Căn hộ:</span> {{$room->type->name}}</li>
                                     </ul>
                                 </div>
                             </div>

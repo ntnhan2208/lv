@@ -115,7 +115,7 @@
                                                            data-price="{{$service->price}}"
                                                            @if($booking->services->contains($service->id)) checked @endif>
                                                     <label class="custom-control-label"
-                                                           for="{{$service->id}}">{{$service->name}}</label>
+                                                           for="{{$service->id}}">{{$service->name.' (Đơn vị tính: '.config('system.unit_price')[$service->unit_price].')'}}</label>
                                                 </div>
                                             @endforeach
                                         </div>

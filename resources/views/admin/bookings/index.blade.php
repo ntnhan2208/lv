@@ -44,14 +44,14 @@
                                             <thead>
                                             <tr>
                                                 <th data-priority="1" class="text-center"></th>
-                                                <th data-priority="1">Phòng</th>
+                                                <th data-priority="1">Loại Căn hộ</th>
+                                                <th data-priority="1">Căn hộ</th>
                                                 <th data-priority="1">{{ trans('site.booking.name') }}</th>
                                                 <th data-priority="1">{{ trans('site.booking.phone') }}</th>
                                                 <th data-priority="6">Ngày ký hợp đồng</th>
                                                 <th data-priority="6">Ngày kết thúc hợp đồng</th>
                                                 <th data-priority="6">{{ trans('site.booking.paid') }}</th>
                                                 <th data-priority="1">
-
                                                 </th>
                                             </tr>
                                             </thead>
@@ -59,6 +59,7 @@
                                             @foreach($bookings as $booking)
                                                 <tr>
                                                     <td class="text-center">{{ $loop->iteration }}</td>
+                                                    <td>{{ $booking->room->type->name }}</td>
                                                     <td>{{ $booking->room->name }}</td>
                                                     <td>{{ $booking->customer->name }}</td>
                                                     <td>{{ $booking->customer->phone }}</td>

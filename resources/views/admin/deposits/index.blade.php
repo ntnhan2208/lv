@@ -34,7 +34,8 @@
                                             <th data-priority="1">Ngày nhận cọc</th>
                                             <th data-priority="1">Ngày vào ở dự kiến</th>
                                             <th data-priority="1">Tiền cọc</th>
-                                            <th data-priority="1">Phòng cọc</th>
+                                            <th data-priority="1">Loại căn hộ</th>
+                                            <th data-priority="1">Căn hộ cọc</th>
                                             <th data-priority="1">Loại cọc</th>
                                             <th data-priority="1"></th>
                                             <th data-priority="1"></th>
@@ -62,12 +63,15 @@
                                                     {{ $deposits->price }}
                                                 </td>
                                                 <td>
+                                                    {{ $deposits->room->type->name }}
+                                                </td>
+                                                <td>
                                                     {{ $deposits->room->name }}
                                                 </td>
                                                 <td>
                                                     <span class="badge badge-soft-{{ $deposits->type==1 ? 'success' : 'warning' }}">{{ config('system.deposits.'.$deposits->type) }}</span>
                                                 </td>
-
+                                                <td>fff</td>
                                                 <td>
                                                     @if($deposits->status == 0)
                                                     <a href="{{ route('add-booking-from-deposits', $deposits->id) }}">

@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group" name="price-cal">
-                                            <label>Giá thuê căn hộ theo tháng</label>
+                                            <label>Giá thuê Căn hộ theo tháng</label>
                                             <div class="input-group">
                                                 <input class="form-control" type="text" id="result0" name="total_room2"
                                                        value="{{old('total_room2')}}" readonly>
@@ -114,7 +114,7 @@
                                                            id="{{$service->id}}"
                                                            data-parsley-multiple="groups" data-parsley-mincheck="2"
                                                            name="services[]" value="{{$service->id}}"
-                                                           data-price="{{$service->price}}" {{ (is_array(old('services')) && in_array($service->id,old('services'))) ? 'checked':'' }}>
+                                                           data-price="{{$service->price}}" {{ ( (is_array(old('services')) && in_array($service->id,old('services'))) ||in_array($service->id, [1,2]) ) ? 'checked':'' }}>
                                                     <label class="custom-control-label"
                                                            for="{{$service->id}}">{{$service->name.' (Đơn vị tính: '.config('system.unit_price')[$service->unit_price].')'}}</label>
                                                 </div>
@@ -125,7 +125,8 @@
                                         <div class="form-group" name="price-cal">
                                             <label>Số tền cọc trước</label>
                                             <div class="input-group">
-                                                <input class="form-control" type="text" id="result2" name="total_deposits2" value="{{old('total_deposits2')}}"
+                                                <input class="form-control" type="text" id="result2"
+                                                       name="total_deposits2" value="{{old('total_deposits2')}}"
                                                        readonly>
                                                 <input class="form-control" name="total_deposits" type="text"
                                                        id="result3" value="{{old('total_deposits')}}"
@@ -150,9 +151,11 @@
                             <div class="col-lg-4">
                                 <label>Số tiền cần thanh toán</label>
                                 <div class="input-group">
-                                    <input class="form-control" type="text" id="total_price" name="total_price2" value="{{old('total_price2')}}"
+                                    <input class="form-control" type="text" id="total_price" name="total_price2"
+                                           value="{{old('total_price2')}}"
                                            readonly>
-                                    <input class="form-control" type="text" id="total_price2" name="total_price" value="{{old('total_price')}}"
+                                    <input class="form-control" type="text" id="total_price2" name="total_price"
+                                           value="{{old('total_price')}}"
                                            readonly hidden>
                                 </div>
                             </div>
@@ -174,7 +177,7 @@
                             <i class="mdi mdi-plus-circle-outline mr-2"></i>
                             {{ trans('site.button_book') }}
                         </button>
-                        <a href="{{ route('customers.index') }}">
+                        <a href="{{ route('bookings.index') }}">
                             <button type="button" class="btn btn-danger ml-2
                     px-4 mb-3 mt-2"><i class="fas fa-window-close"></i> {{trans('site.reset') }} </button>
                         </a>

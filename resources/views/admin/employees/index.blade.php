@@ -106,8 +106,9 @@
                             <tr>
                                 <th data-priority="1" class="text-center"></th>
                                 <th data-priority="1">Thời gian</th>
-                                <th data-priority="1">Phòng</th>
+                                <th data-priority="1">Căn hộ</th>
                                 <th data-priority="1">Hoa hồng</th>
+                                <th data-priority="1"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -124,6 +125,16 @@
                                     </td>
                                     <td>
                                         @money($value->commission)
+                                    </td>
+                                    <td>
+                                        @csrf
+                                        <div class="checkbox checkbox-success checkbox-circle">
+                                            <input id="checkbox-{{$value->id}}" type="checkbox" {{$value->status == 1 ? 'checked disabled' : ''}}  onclick="if(!confirm('Xác nhận thay đổi trạng thái thanh toán'))
+												  {return false;} else status({{$value->id}})">
+                                            <label for="checkbox-{{$value->id}}">
+                                                Đã thanh toán
+                                            </label>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -142,6 +153,43 @@
     <script>
         function show(id){
             $('#myModal-'+id).modal('show');
+        }
+
+
+        function status(id){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                data: {
+                    id: id,
+                },
+                url: '/admin/employees-changes-status-commission',
+                success: function (data) {
+                    $('#checkbox-'+id).attr('disabled','disabled');
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success,
+                        })
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: data.error,
+                        })
+                    }
+                },
+            });
         }
     </script>
 @endsection

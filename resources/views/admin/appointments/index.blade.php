@@ -3,10 +3,12 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="page-title-box">
-                <div class="float-right">
-                    <a class="btn btn-primary float-right"
-                       href="{{ route('appointments.create') }}">{{ trans('site.add') }}</a>
-                </div>
+                @if(\Illuminate\Support\Facades\Auth::user()->role == null)
+                    <div class="float-right">
+                        <a class="btn btn-primary float-right"
+                           href="{{ route('appointments.create') }}">{{ trans('site.add') }}</a>
+                    </div>
+                @endif
                 <h4 class="page-title">Quản lý lịch hẹn</h4>
             </div>
             <div class="card mt-3">
@@ -19,6 +21,7 @@
                                     <th></th>
                                     <th data-priority="1">Khách hẹn</th>
                                     <th data-priority="1">Số điện thoại</th>
+                                    <th data-priority="1">Loại Căn hộ</th>
                                     <th data-priority="1">Căn hộ</th>
                                     <th data-priority="1">Ngày</th>
                                     <th data-priority="1">Nhân viên môi giới</th>
@@ -40,6 +43,9 @@
                                             {{ $appointment->phone }}
                                         </td>
                                         <td>
+                                            {{ $appointment->room->type->name }}
+                                        </td>
+                                        <td>
                                             {{ $appointment->room->name }}
                                         </td>
                                         <td>
@@ -54,12 +60,15 @@
                                         </td>
                                         <td>
                                             @if(!in_array($appointment->status,[2,3,4]))
-                                                <a href="{{ route('add-bookings', $appointment->id) }}">
-                                                    <button type="button" class="btn btn-secondary ml-2 px-4 mb-3 mt-2">
-                                                        <i class="mdi mdi-plus-circle-outline mr-2"></i> Tạo hợp đồng
-                                                        mới
-                                                    </button>
-                                                </a>
+                                                @if(\Illuminate\Support\Facades\Auth::user()->role == null)
+                                                    <a href="{{ route('add-bookings', $appointment->id) }}">
+                                                        <button type="button" class="btn btn-secondary ml-2 px-4 mb-3 mt-2">
+                                                            <i class="mdi mdi-plus-circle-outline mr-2"></i> Tạo hợp đồng
+                                                            mới
+                                                        </button>
+                                                    </a>
+                                                @endif
+
                                                 <a href="{{ route('add-deposits', $appointment->id) }}">
                                                     <button type="button" class="btn btn-primary ml-2 px-4 mb-3 mt-2"><i
                                                                 class="mdi mdi-plus-circle-outline mr-2"></i> Đặt cọc

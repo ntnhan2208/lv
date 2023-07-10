@@ -58,12 +58,12 @@ class SearchController extends BaseFEController
         $personal_id = $request->input('personal_id');
         $customer = $this->customer->where('phone', $phone)->first();
         if ($customer == null) {
-            return redirect()->back()->with('message', 'Số điện thoại chưa có đặt phòng! Vui lòng liên hệ khách sạn để hiểu thêm!');;
+            return redirect()->back()->with('message', 'Số điện thoại chưa có đặt Căn hộ! Vui lòng liên hệ khách sạn để hiểu thêm!');;
         }
         $bookings = $customer->bookings()->where('paid', 0)->where('active', 1)->get();
 //        dd($bookings->count());
         if ($bookings->count()==0) {
-            return redirect()->back()->with('message', 'Không có đặt phòng! Vui lòng liên hệ khách sạn để hiểu thêm!');;
+            return redirect()->back()->with('message', 'Không có đặt Căn hộ! Vui lòng liên hệ khách sạn để hiểu thêm!');;
 
         }
         return view('web.search-boooking-result', compact('customer', 'bookings'));

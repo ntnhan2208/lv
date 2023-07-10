@@ -10,6 +10,7 @@ use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends BaseAdminController
 {
@@ -23,7 +24,10 @@ class AppointmentController extends BaseAdminController
 
     public function index()
     {
-        $appointments = $this->appointment->all();
+        if (Auth::user()->role<>null){
+            $employeeId = $this->employee->where('personal_id', Auth::user()->personal_id)->first()->id;
+        }
+        $appointments = Auth::user()->role<>null ? $this->appointment->where('employee_id', $employeeId)->get() : $this->appointment->all();
         return view('admin.appointments.index', compact('appointments'));
     }
 
@@ -31,7 +35,7 @@ class AppointmentController extends BaseAdminController
     {
         $checkEmptyRoom = $this->room->checkEmptyRoom();
         if(!$checkEmptyRoom){
-            toastr()->error(trans('Đã hết phòng trống'));
+            toastr()->error(trans('Đã hết Căn hộ trống'));
             return back();
         }
         $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();

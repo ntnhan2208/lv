@@ -10,7 +10,7 @@
         <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
             <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
                 <div class="text">
-                    <h1 class="mb-4 bread">Đặt phòng</h1>
+                    <h1 class="mb-4 bread">Đặt Căn hộ</h1>
                 </div>
             </div>
         </div>
@@ -35,20 +35,20 @@
                                 </div>
                                 <input type="text" name="room_id" value="{{$room->id}}" hidden readonly>
                                 <div>
-                                    <h5>Loại phòng: {{$room->type->name}}</h5>
+                                    <h5>Loại Căn hộ: {{$room->type->name}}</h5>
                                 </div>
                                 <div>
                                     <div class="row" id="book-room">
                                         <div class="form-group col-lg-6">
                                             <div class="wrap">
-                                                <label for="#">Ngày nhận phòng</label>
+                                                <label for="#">Ngày nhận Căn hộ</label>
                                                 <input name="date_start" id="date_start" type="date"
                                                        class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <div class="wrap">
-                                                <label for="#">Ngày trả phòng</label>
+                                                <label for="#">Ngày trả Căn hộ</label>
                                                 <input name="date_end" id="date_end" type="date" class="form-control">
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
                         <div class="col-lg-4">
                             <div class="row">
                                 <div class="col-lg-8">
-                                    <h4>Tổng tiền phòng:</h4>
+                                    <h4>Tổng tiền Căn hộ:</h4>
                                 </div>
                                 <div class="col-lg-4">
                                     <h4 id="show_room_price"></h4>
@@ -156,7 +156,7 @@
                                 <span class="help-block"><strong>{{ $errors->first('g-recaptcha-response') }}</strong></span>
                             @endif
                             <div class="row">
-                                <button type="submit" class="btn btn-primary py-3 px-5">Đặt phòng</button>
+                                <button type="submit" class="btn btn-primary py-3 px-5">Đặt Căn hộ</button>
                             </div>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 room-single ftco-animate mb-5 mt-5">
-                <h4 class="mb-4">Phòng tương tự</h4>
+                <h4 class="mb-4">Căn hộ tương tự</h4>
                 <div class="row">
                     @foreach($availables as $available)
                         <div class="col-sm col-md-4 ftco-animate">
@@ -183,7 +183,7 @@
                                     <p><span class="price mr-2">{{$available->price}}</span></p>
                                     <hr>
                                     <p class="pt-1"><a href="{{route('web_rooms.show',$available->id)}}"
-                                                       class="btn-custom">Chi tiết phòng<span
+                                                       class="btn-custom">Chi tiết Căn hộ<span
                                                     class="icon-long-arrow-right"></span></a></p>
                                 </div>
                             </div>

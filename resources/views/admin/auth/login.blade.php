@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>QUẢN LÝ CĂN HỘ</title>
+        <title>QUẢN LÝ Căn hộ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Phoenix CMS - ADMINISTRATOR" name="description" />
         <meta content="Phoenix CMS - ADMINISTRATOR" name="author" />

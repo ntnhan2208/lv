@@ -41,7 +41,7 @@
                         <div class="col-md-3 d-flex">
                             <div class="form-group p-4 align-self-stretch d-flex align-items-end border-radius-15">
                                 <div class="wrap">
-                                    <label for="#">Loại căn hộ</label>
+                                    <label for="#">Loại Căn hộ</label>
                                     <div class="form-field">
                                         <div class="select-wrap">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
@@ -101,7 +101,7 @@
             <div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
                 <div class="heading-section heading-section-wo-line pt-md-5 pl-md-5 mb-5">
                     <div class="ml-md-0">
-                        <span class="subheading">CĂN HỘ CHO THUÊ</span>
+                        <span class="subheading">Căn hộ CHO THUÊ</span>
                         <h2 class="mb-4">Rất vui khi được đồng hành cùng bạn</h2>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                             <p><span class="price mr-2">@money($room->price)</span></p>
                             <hr>
                             <p class="pt-1"><a href="{{route('web_rooms.show',$room->id)}}" class="btn-custom">Chi
-                                    tiết căn hộ <span class="icon-long-arrow-right"></span></a></p>
+                                    tiết Căn hộ <span class="icon-long-arrow-right"></span></a></p>
                         </div>
                     </div>
                 </div>
