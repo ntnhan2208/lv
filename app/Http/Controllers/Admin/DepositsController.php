@@ -117,6 +117,7 @@ class DepositsController extends BaseAdminController
         $deposits->room_id = $request->input('room_id');
         $deposits->status = $request->input('status') <> 0 ? $request->input('status') : 0;
         $deposits->save();
+
         //cập nhật lại status thành đặt cọc
         $appointment = $this->appointment->where(['phone' => $deposits->phone, 'room_id' => $deposits->room_id])->first();
         if($appointment){
@@ -126,7 +127,9 @@ class DepositsController extends BaseAdminController
         foreach ($otherAppointment as $other){
             $this->appointment->where(['phone' => $other->phone, 'room_id' => $deposits->room_id])->update(['status'=>4]) ;
         }
+
         $this->appointment->checkAppointment($deposits->room_id);
+
         $this->room->where(['id' => $deposits->room_id])->update(['booked'=>1]) ;
     }
 }

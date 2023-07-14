@@ -61,11 +61,10 @@ class CustomerController extends BaseAdminController
 
     public function update(CustomerRequest $request, $id)
     {
-        $customer = $this->customer->find($id);
-        $this->syncRequest($request, $customer);
-
         DB::beginTransaction();
         try {
+            $customer = $this->customer->find($id);
+            $this->syncRequest($request, $customer);
             DB::commit();
             toastr()->success(trans('site.message.update_success'));
             return redirect()->route('customers.index');

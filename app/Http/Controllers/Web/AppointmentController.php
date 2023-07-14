@@ -19,9 +19,9 @@ class AppointmentController extends BaseFEController
 
     public function store(Request $request, Appointment $appointment)
     {
-        $this->syncRequest($request, $appointment);
         DB::beginTransaction();
         try {
+            $this->syncRequest($request, $appointment);
             DB::commit();
             return response()->json(['success' => 'Đã đặt lịch hẹn thành công!'], 200);
         } catch (\Exception $e) {

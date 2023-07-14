@@ -20,6 +20,8 @@ class BillController extends BaseAdminController
         $this->bill = $bill;
         parent::__construct();
     }
+
+
     public function index($id)
     {
         $room = $this->room->find($id);
@@ -33,7 +35,7 @@ class BillController extends BaseAdminController
     {
         $room = $this->room->find($id);
         $bookingOfRoom = $this->booking->where('room_id',$id)->first();
-        $inDebt = $bookingOfRoom->paid == 0 ? $bookingOfRoom->total_price : 0;
+        $inDebt = $bookingOfRoom->paid == 0 ? $bookingOfRoom->total_price : 0; //nợ của hợp đồng
         $bills = $this->bill->where('booking_id', $bookingOfRoom->id)->get();
         foreach ($bills as $bill){
             if($bill->status == 0){
@@ -72,9 +74,9 @@ class BillController extends BaseAdminController
         $bookingOfRoom = $this->booking->where('room_id',$room)->first();
         $inDebt = $bookingOfRoom->paid == 0 ? $bookingOfRoom->total_price : 0;
         $bills = $this->bill->where('booking_id', $bookingOfRoom->id)->where('id','<>',$id)->get();
-        foreach ($bills as $bill){
+        foreach ($bills as $billOld){
             if($bill->status == 0){
-                $inDebt += $bill->total;
+                $inDebt += $billOld->total;
             }
         }
 
@@ -86,16 +88,17 @@ class BillController extends BaseAdminController
     {
         DB::beginTransaction();
         try {
-            DB::commit();
             $this->bill->where('id',$id)->update(['status'=> $request->status]);
-
             if($request->status == 1){
                 $bill = $this->bill->where('id',$id)->first();
                 $bill->booking->update(['paid'=> 1]);
+                $bills = $this->bill->where('id','<',$bill->id)->where('status',0)->get();
+                foreach ($bills as $billOld){
+                    $billOld->update(['status'=>1]);
+                }
             }
-
+            DB::commit();
             toastr()->success(trans('site.message.update_success'));
-            return redirect()->route('room-booked');
             return redirect()->route('room-booked');
         } catch (\Exception $e) {
             DB::rollback();
@@ -125,6 +128,11 @@ class BillController extends BaseAdminController
         if($request->status == 1){
             $newBill = $this->bill->where('id',$bill->id)->first();
             $newBill->booking->update(['paid'=> 1]);
+
+            $bills = $this->bill->where('id','<',$bill->id)->where('status',0)->get();
+            foreach ($bills as $billOld){
+                $billOld->update(['status'=>1]);
+            }
         }
     }
 }

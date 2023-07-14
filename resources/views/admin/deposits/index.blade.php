@@ -71,7 +71,6 @@
                                                 <td>
                                                     <span class="badge badge-soft-{{ $deposits->type==1 ? 'success' : 'warning' }}">{{ config('system.deposits.'.$deposits->type) }}</span>
                                                 </td>
-                                                <td>fff</td>
                                                 <td>
                                                     @if($deposits->status == 0)
                                                     <a href="{{ route('add-booking-from-deposits', $deposits->id) }}">

@@ -66,10 +66,10 @@ class BookingController extends BaseAdminController
 
     public function store(Request $request, Booking $booking, Customer $customer)
     {
-        $this->syncRequest($request, $booking, $customer);
-        DB::commit();
         DB::beginTransaction();
         try {
+            $this->syncRequest($request, $booking, $customer);
+            DB::commit();
             toastr()->success(trans('site.message.add_success'));
             return redirect()->route('bookings.index');
         } catch (\Exception $e) {
@@ -122,7 +122,7 @@ class BookingController extends BaseAdminController
                 $booking->room->booked = 0;
                 $booking->room->save();
             }
-            $this->syncRequest2($request, $booking);
+            $this->syncRequestUpdate($request, $booking);
             DB::commit();
             toastr()->success(trans('site.message.update_success'));
             return redirect()->route('bookings.index');
@@ -148,20 +148,6 @@ class BookingController extends BaseAdminController
         toastr()->success(trans('site.message.delete_success'));
 
         return redirect()->route('bookings.index');
-    }
-
-    public function checkDuplicateCustomer(Request $request)
-    {
-        $phone = $request->input('check_phone');
-        $customer = $this->customer->where('phone', $phone)->first();
-        if ($customer) {
-            $id = $customer->id;
-            toastr()->success('Khách hàng cũ');
-            return redirect()->route('re_create', $id);
-        } else {
-            toastr()->success('Khách hàng mới');
-            return redirect()->route('bookings.create');
-        }
     }
 
     public function syncRequest($request, Booking $booking, Customer $customer)
@@ -200,9 +186,20 @@ class BookingController extends BaseAdminController
             $this->appointment->where(['phone' => $other->phone, 'room_id' => $booking->room_id])->update(['status'=>4]) ;
         }
 
+        // cọc
+        // type 0 - cọc giữ chỗ
+        $otherDepositses = $this->deposits->where('room_id', $booking->room_id)->where('type',0)->where('phone','<>',$phone)->get();
+        foreach ($otherDepositses as $otherDeposits){
+            $this->deposits->where(['phone' => $otherDeposits->phone, 'room_id' => $booking->room_id])->update(['status'=>1]) ;
+        }
+        $deposits = $this->deposits->where(['phone' => $phone, 'room_id' => $booking->room_id])->first();
+        if($deposits){
+            $this->deposits->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>1]) ;
+        }
+
+
         if($appointment){
             $this->appointment->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>3]) ;
-
             //hoa hồng
             $employeeOfBooking = $appointment->employee_id;
             $employee = $this->employee->find($appointment->employee_id);
@@ -219,17 +216,6 @@ class BookingController extends BaseAdminController
 
         }
 
-        // cọc
-        $otherDepositses = $this->deposits->where('room_id', $booking->room_id)->where('type',0)->where('phone','<>',$phone)->get();
-        foreach ($otherDepositses as $otherDeposits){
-            $this->deposits->where(['phone' => $otherDeposits->phone, 'room_id' => $booking->room_id])->update(['status'=>1]) ;
-        }
-        $deposits = $this->deposits->where(['phone' => $phone, 'room_id' => $booking->room_id])->first();
-        if($deposits){
-            $this->deposits->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>1]) ;
-        }
-
-
 
         // revert booked in room
         $current_booking = $this->booking->find($booking->id);
@@ -241,7 +227,7 @@ class BookingController extends BaseAdminController
         $room->save();
     }
 
-    public function syncRequest2($request, Booking $booking)
+    public function syncRequestUpdate($request, Booking $booking)
     {
         $booking->request = $request->input('request');
         $booking->date_start = $request->input('date_start');
@@ -259,12 +245,5 @@ class BookingController extends BaseAdminController
         $current_booking = $this->booking->find($booking->id);
         $current_booking->services()->sync($request->input('services'));
 
-        $room = $current_booking->room()->find($booking->room_id);
-//        if ($booking->paid == 0) {
-//            $room->booked = 1;
-//        } else {
-//            $room->booked = 0;
-//        }
-        $room->save();
     }
 }

@@ -77,16 +77,6 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <form class="float-right"
-                                                  action="{{ route('appointments.destroy',$appointment->id) }}"
-                                                  method="POST"
-                                                  onSubmit="if(!confirm('{{ trans('site.confirm') }}')) {return false;}">
-                                                {{ method_field('DELETE') }}
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-xs btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
                                             <div class="float-right mr-3">
                                                 <a href="{{ route('appointments.edit', $appointment->id) }}"
                                                    class="btn btn-xs btn-primary"><i class="far fa-edit"></i></a>

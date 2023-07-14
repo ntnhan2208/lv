@@ -36,8 +36,8 @@ class RoomController extends BaseAdminController
     public function store(RoomRequest $request, Room $room)
     {
         DB::beginTransaction();
-        $this->syncRequest($request, $room);
         try {
+            $this->syncRequest($request, $room);
             DB::commit();
             toastr()->success(trans('site.message.add_success'));
             return redirect()->route('rooms.index');
