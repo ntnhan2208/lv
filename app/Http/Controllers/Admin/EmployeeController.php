@@ -96,9 +96,15 @@ class EmployeeController extends BaseAdminController
     public function destroy($id)
     {
         $employee = $this->employee->find($id);
-        $employee->delete();
-        toastr()->success(trans('site.message.delete_success'));
-        return redirect()->route('employees.index');
+        if($employee->appointment->exists()){
+            toastr()->error('Nhân viên môi giới có lịch hẹn, không thể xóa');
+            return redirect()->route('employees.index');
+        }else{
+            $employee->delete();
+            toastr()->success(trans('site.message.delete_success'));
+            return redirect()->route('employees.index');
+        }
+
     }
 
     public function syncRequest($request, Employee $employee)

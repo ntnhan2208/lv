@@ -3,11 +3,11 @@
     <div class="row mt-3">
         <div class="col-lg-12">
             <div class="page-title-box">
-                <div class="float-right">
-                    <a class="btn btn-primary float-right"
-                       href="{{ route('deposits.create') }}">Đặt cọc mới</a>
-                </div>
-                <h4 class="page-title">Danh sách phòng trống</h4>
+{{--                <div class="float-right">--}}
+{{--                    <a class="btn btn-primary float-right"--}}
+{{--                       href="{{ route('deposits.create') }}">Đặt cọc mới</a>--}}
+{{--                </div>--}}
+                <h4 class="page-title">Danh sách căn hộ trống</h4>
             </div>
         </div>
         <div class="col-lg-12">

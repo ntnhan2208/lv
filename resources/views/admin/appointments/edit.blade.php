@@ -16,7 +16,7 @@
                                         <input type="text" id="example-input1-group1" name="name"
                                                class="form-control"
                                                placeholder="{{ trans('site.customer.name') }}"
-                                               value="{{$appointment->name}}" {{in_array($appointment->status,[2,3,4]) ? "style=pointer-events:none" : ''}}>
+                                               value="{{$appointment->name}}" {{(in_array($appointment->status,[2,3,4]) || \Illuminate\Support\Facades\Auth::user()->role==1 )? "style=pointer-events:none" : ''}}>
                                     </div>
                                 </div>
                             </div>
@@ -27,7 +27,7 @@
                                         <input type="text" id="example-input1-group1" name="phone"
                                                class="form-control"
                                                placeholder="Số điện thoại"
-                                               value="{{$appointment->phone}}" {{in_array($appointment->status,[2,3,4]) ? "style=pointer-events:none" : ''}}>
+                                               value="{{$appointment->phone}}" {{(in_array($appointment->status,[2,3,4]) || \Illuminate\Support\Facades\Auth::user()->role==1)? "style=pointer-events:none" : ''}}>
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                                     <label>Ngày hẹn</label>
                                     <div class="input-group">
                                         <input class="form-control" type="date" name="date"
-                                               id="date_start" value="{{$appointment->date}}" {{in_array($appointment->status,[2,3,4]) ? "style=pointer-events:none" : ''}}>
+                                               id="date_start" value="{{$appointment->date}}" {{(in_array($appointment->status,[2,3,4]) || \Illuminate\Support\Facades\Auth::user()->role==1)? "style=pointer-events:none" : ''}}>
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                                 <div class="form-group">
                                     <label>Căn hộ xem</label>
                                     <select class="custom-select custom-select-sm form-control form-control-sm"
-                                            id="price" name="room_id" {{in_array($appointment->status,[2,3,4]) ? "style=pointer-events:none" : ''}}>
+                                            id="price" name="room_id" {{(in_array($appointment->status,[2,3,4]) || \Illuminate\Support\Facades\Auth::user()->role==1)? "style=pointer-events:none" : ''}}>
                                         @foreach($rooms as $room)
                                             <option value="{{$room->id}}"
                                                     {{$room->id == $appointment->room_id ? 'selected':''}}>{{$room->name}}</option>
@@ -59,10 +59,10 @@
                                 <div class="form-group">
                                     <label>Nhân viên môi giới</label>
                                     <select class="custom-select custom-select-sm form-control form-control-sm"
-                                            id="price" name="employee_id" {{in_array($appointment->status,[2,3,4]) ? "style=pointer-events:none" : ''}}>
+                                            id="price" name="employee_id" {{(in_array($appointment->status,[2,3,4]) || \Illuminate\Support\Facades\Auth::user()->role==1)? "style=pointer-events:none" : ''}}>
                                         @foreach($employees as $employee)
                                             <option value="{{$employee->id}}"
-                                                    {{$employee->id == $employee->id ? 'selected':''}}>{{$employee->name}}</option>
+                                                    {{$employee->id == $appointment->employee_id ? 'selected':''}}>{{$employee->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

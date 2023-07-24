@@ -36,6 +36,7 @@
                                     <select class="custom-select custom-select-sm form-control form-control-sm"
                                             name="room_id" style="pointer-events: none">
                                         @foreach($rooms as $room)
+
                                             <option value="{{$room->id}}"
                                                     {{$deposits->room_id == $room->id ? 'selected':''}}>{{$room->name}}</option>
                                         @endforeach

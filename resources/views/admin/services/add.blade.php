@@ -38,11 +38,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Đơn giá</label>
+                                    <label>Đơn vị tính</label>
                                     <select name="unit_price"
                                             class="custom-select custom-select-sm form-control form-control-sm">
                                         @foreach(config('system.unit_price') as $k => $v)
-                                        <option value="{{ $k }}" {{ old('unit_price') == $k ? 'selected':''}}>{{ $v }}</option>
+                                            @if($k>1)
+                                                <option value="{{ $k }}" {{ old('unit_price') == $k ? 'selected':''}}>{{ $v }}</option>
+                                            @endif
+
                                         @endforeach
                                     </select>
                                 </div>

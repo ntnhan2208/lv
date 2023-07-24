@@ -74,7 +74,7 @@
             <li class="{{ (request()->is('admin/employee_ready_room*')) ? 'mm-active' : '' }}">
                 <a href="{{ route('employee_ready_room') }}">
                     <i class="ti-bookmark-alt"></i>
-                    <span>Danh sách phòng trống</span>
+                    <span>Danh sách căn hộ trống</span>
                 </a>
             </li>
             <li class="{{ (request()->is('admin/appointment*')) ? 'mm-active' : '' }}">

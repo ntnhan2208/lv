@@ -29,6 +29,6 @@ return [
     ],
     'deposits' => [
         '0' => 'Cọc giữ chỗ',
-        '1' => 'Cọc thuê nhà'
+        '1' => 'Cọc thuê căn hộ'
     ]
 ];

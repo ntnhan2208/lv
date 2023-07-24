@@ -19,6 +19,11 @@ class AppointmentController extends BaseFEController
 
     public function store(Request $request, Appointment $appointment)
     {
+        //trùng sđt và căn hộ
+        $currentAppointment = $this->appointment->where('phone',$request->phone)->where('room_id',$request->room_id)->first();
+        if ($currentAppointment){
+            return response()->json(['error' => 'Rất tiếc, đã xảy ra lỗi!'], 200);
+        }
         DB::beginTransaction();
         try {
             $this->syncRequest($request, $appointment);

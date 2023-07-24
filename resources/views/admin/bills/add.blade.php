@@ -48,7 +48,7 @@
                                                     <label>Số điện cũ</label>
                                                     <div class="input-group">
                                                         <input class="form-control" type="text" id="old_electric" name="old_electric"
-                                                               value="">
+                                                               value="{{$oldElectric}}" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -83,7 +83,7 @@
                                                 <div class="form-group">
                                                     <label>Số nước cũ</label>
                                                     <div class="input-group">
-                                                        <input class="form-control" type="text" id="old_water" name="old_water">
+                                                        <input class="form-control" type="text" id="old_water" name="old_water" value="{{$oldWater}}" readonly>
                                                     </div>
                                                 </div>
                                             </div>

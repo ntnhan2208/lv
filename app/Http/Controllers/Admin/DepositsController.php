@@ -61,7 +61,7 @@ class DepositsController extends BaseAdminController
     public function edit($id)
     {
         $deposits = $this->deposits->find($id);
-        $rooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
+        $rooms = $this->room->where('id', $deposits->room_id)->get();
         if ($deposits) {
             return view('admin.deposits.edit', compact('deposits', 'rooms'));
         }

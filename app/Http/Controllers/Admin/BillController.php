@@ -37,6 +37,9 @@ class BillController extends BaseAdminController
         $bookingOfRoom = $this->booking->where('room_id',$id)->first();
         $inDebt = $bookingOfRoom->paid == 0 ? $bookingOfRoom->total_price : 0; //nợ của hợp đồng
         $bills = $this->bill->where('booking_id', $bookingOfRoom->id)->get();
+        $lastestBill = $this->bill->where('booking_id', $bookingOfRoom->id)->orderBy('id','desc')->first();
+        $oldElectric = $lastestBill ? $lastestBill->new_electric : 0;
+        $oldWater = $lastestBill ? $lastestBill->new_water : 0;
         foreach ($bills as $bill){
             if($bill->status == 0){
                 $inDebt += $bill->total;
@@ -45,7 +48,7 @@ class BillController extends BaseAdminController
 
         $services = $bookingOfRoom->services()->get();
 
-        return view('admin.bills.add', compact('services','bookingOfRoom', 'inDebt'));
+        return view('admin.bills.add', compact('services','bookingOfRoom', 'inDebt', 'oldElectric', 'oldWater'));
     }
 
 
