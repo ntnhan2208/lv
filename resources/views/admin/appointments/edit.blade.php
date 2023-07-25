@@ -25,7 +25,7 @@
                                     <label>Số điện thoại</label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="phone"
-                                               class="form-control"
+                                               class="form-control integerInput" maxlength="10"
                                                placeholder="Số điện thoại"
                                                value="{{$appointment->phone}}" {{(in_array($appointment->status,[2,3,4]) || \Illuminate\Support\Facades\Auth::user()->role==1)? "style=pointer-events:none" : ''}}>
                                     </div>

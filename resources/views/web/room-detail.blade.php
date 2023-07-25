@@ -99,7 +99,7 @@
 </section> <!-- .section -->
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form action="{{route('appointment.store')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('appointment.store')}}" method="POST" enctype="multipart/form-data" id="frm">
         @csrf
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -111,7 +111,7 @@
                 </div>
                 <div class="modal-body">
                     <input id="name" name="name" type="text" class="form-control" placeholder="Họ và tên" required>
-                    <input id="phone" name="phone" type="text" class="form-control mt-2" placeholder="Số điện thoại" required>
+                    <input id="phone" name="phone" type="text" class="form-control mt-2 integerInput" maxlength="10" placeholder="Số điện thoại" required>
                     <input id="date" name="date" type="date" class="form-control mt-2" required>
                     <input id="room" name="room_id" type="text" value="{{$room->name}}" class="form-control mt-2" data-room="{{$room->id}}" readonly>
 {{--                    <input name="employee_id" type="text" value="1" class="form-control mt-2" placeholder="rr" readonly hidden="">--}}
@@ -165,26 +165,37 @@
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
-                    icon: 'success',
                     showConfirmButton: false,
                     timer: 3000
                 })
                 if ($.isEmptyObject(data.error)) {
                     Toast.fire({
+                        icon: 'success',
                         type: 'success',
                         title: data.success,
                     })
+                    setTimeout(function(){
+                        location.reload();
+                    }, 2000);
                 } else {
                     Toast.fire({
+                        icon: 'error',
                         type: 'error',
                         title: data.error,
                     })
                 }
-                location.reload();
             },
         });
     });
 
+</script>
+<script>
+    $("body").on('input', '.integerInput', function () {
+        $(this).val($(this).val().replace(/[^0-9]/gi, ''));
+    });
+    $("#frm").submit(function() {
+        $(":submit", this).attr("disabled", "disabled");
+    });
 </script>
 </body>
 </html>

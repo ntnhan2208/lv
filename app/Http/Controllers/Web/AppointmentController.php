@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AppointmentRequest;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\Employee;
@@ -23,6 +24,12 @@ class AppointmentController extends BaseFEController
         $currentAppointment = $this->appointment->where('phone',$request->phone)->where('room_id',$request->room_id)->first();
         if ($currentAppointment){
             return response()->json(['error' => 'Rất tiếc, đã xảy ra lỗi!'], 200);
+        }
+        if($request->name==null){
+            return response()->json(['error' => 'Tên không được để trống'], 200);
+        }
+        if($request->phone==null){
+            return response()->json(['error' => 'Số điện thoại không được để trống'], 200);
         }
         DB::beginTransaction();
         try {

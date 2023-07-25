@@ -58,7 +58,7 @@
                                     <label>{{ trans('site.employee.phone') }} </label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="phone"
-                                               class="form-control"
+                                               class="form-control integerInput" maxlength="10"
                                                value="{{$employee->phone}}">
                                     </div>
                                 </div>

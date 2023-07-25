@@ -16,7 +16,7 @@
                                     <div class="input-group">
                                         <input type="text" name="name"
                                                class="form-control name"
-                                               value="{{$service->name}}" {{in_array($service->id,[1,2]) ? "style=pointer-events:none" : ''}}>
+                                               value="{{$service->name}}" {{(in_array($service->id,[1,2])||$service->bookings()->exists()) ? "style=pointer-events:none" : ''}}>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -37,7 +37,7 @@
                                 <div class="form-group">
                                     <label>Đơn vị tính</label>
                                     <select name="unit_price"
-                                            class="custom-select custom-select-sm form-control form-control-sm" {{in_array($service->id,[1,2]) ? "style=pointer-events:none" : ''}}>
+                                            class="custom-select custom-select-sm form-control form-control-sm" {{(in_array($service->id,[1,2])||$service->bookings()->exists()) ? "style=pointer-events:none" : ''}}>
                                         @foreach(config('system.unit_price') as $k => $v)
                                             @if($k>1)
                                             <option value="{{ $k }}" {{ old('unit_price') == $k ? 'selected':''}}>{{ $v }}</option>

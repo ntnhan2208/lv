@@ -17,13 +17,13 @@ class TypeRequest extends FormRequest
         switch ( $this->method()){
             case 'POST':
                 return [
-                    'name' => ['required',Rule::unique('types')],
+                    'name' => ['required',Rule::unique('types'),'max:150'],
                     'description' => 'required'
                 ];
             case 'PATCH':
             case 'PUT':
                 return  [
-                    'name' => ['required',Rule::unique('types')->ignore($this->type,'id')],
+                    'name' => ['required',Rule::unique('types')->ignore($this->type,'id'),'max:150'],
                     'description' => 'required'
                 ];
         }
@@ -33,7 +33,8 @@ class TypeRequest extends FormRequest
         return [
             'name.required' => trans('site.type.validation.name_not_empty'),
             'name.unique' => trans('site.type.validation.name_exist'),
-            'description.required' => trans('site.type.validation.description_not_empty')
+            'description.required' => trans('site.type.validation.description_not_empty'),
+            'name.max'=>'Tên loại căn hộ không được vượt quá 150 ký tự'
         ];
     }
 }

@@ -23,7 +23,7 @@
                                     <label>{{ trans('site.booking.personal_id') }} </label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="personal_id"
-                                               class="form-control"
+                                               class="form-control integerInput"
                                                placeholder="{{ trans('site.booking.personal_id') }}"
                                                value="{{old('personal_id')}}">
                                     </div>
@@ -36,7 +36,7 @@
                                     <label>{{ trans('site.booking.phone') }} </label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="phone"
-                                               class="form-control"
+                                               class="form-control integerInput" maxlength="10"
                                                placeholder="{{ trans('site.booking.phone') }}"
                                                value="{{$deposits->phone}}">
                                     </div>

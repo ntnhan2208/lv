@@ -12,28 +12,28 @@
                             <label>{{ trans('site.customer.name') }} </label>
                             <div class="input-group">
                                 <input type="text" id="example-input1-group1" name="name" class="form-control"
-                                       value="{{$customer->name}}">
+                                       value="{{$customer->name}}" {{$customer->bookings()->exists() ? "style=pointer-events:none" : ''}}>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>{{ trans('site.customer.phone') }} </label>
                             <div class="input-group">
-                                <input type="text" id="example-input1-group1" name="phone" class="form-control"
-                                       value="{{$customer->phone}}">
+                                <input type="text" id="example-input1-group1" name="phone" class="form-control integerInput" maxlength="10"
+                                       value="{{$customer->phone}}" {{$customer->bookings()->exists() ? "style=pointer-events:none" : ''}}>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>{{ trans('site.customer.email') }} </label>
                             <div class="input-group">
                                 <input type="email" id="example-input1-group1" name="email" class="form-control"
-                                       value="{{$customer->email}}">
+                                       value="{{$customer->email}}" {{$customer->bookings()->exists() ? "style=pointer-events:none" : ''}}>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>{{ trans('site.customer.personal_id') }} </label>
                             <div class="input-group">
-                                <input type="text" id="example-input1-group1" name="personal_id" class="form-control"
-                                       value="{{$customer->personal_id}}">
+                                <input type="text" id="example-input1-group1" name="personal_id" class="form-control integerInput"
+                                       value="{{$customer->personal_id}}" {{$customer->bookings()->exists() ? "style=pointer-events:none" : ''}}>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary px-4 mb-3 mt-2">

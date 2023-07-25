@@ -20,7 +20,7 @@ class AppointmentRequest extends FormRequest
     public function rules()
     {
         return[
-            'name' 	=>  ['required'],
+            'name' 	=>  ['required','max:150'],
             'phone'    	=>  ['required'],
             'date' => ['required'],
         ];
@@ -30,6 +30,7 @@ class AppointmentRequest extends FormRequest
     {
         return [
             'name.required' 	=> 'Tên khách hàng không được để trống',
+            'name.max' 	=> 'Tên khách hàng không được vượt 150 ký tự',
             'phone.required' 	=> 'Số điện thoại hàng không được để trống',
             'date.required' 	=> 'Ngày hẹn không được để trống',
         ];

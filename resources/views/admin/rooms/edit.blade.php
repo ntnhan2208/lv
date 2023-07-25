@@ -22,20 +22,20 @@
                                 <div class="form-group">
                                     <label>{{trans('site.room.amount')}}</label>
                                     <input type="text" name="amount"
-                                           class="form-control"
+                                           class="form-control integerInput"
                                            value="{{$room->amount}}">
                                 </div>
                                 <div class="form-group">
                                     <label>{{trans('site.room.acreage')}}</label>
                                     <input type="text" name="acreage"
-                                           class="form-control"
+                                           class="form-control integerInput"
                                            value="{{$room->acreage}}">
                                 </div>
                                 <div class="form-group">
                                     <label>{{trans('site.room.price')}}</label>
                                     <div class="input-group">
                                         <input type="text" name="price"
-                                               class="form-control"
+                                               class="form-control integerInput"
                                                value="{{$room->price}}">
                                     </div>
                                 </div>

@@ -81,7 +81,7 @@ class ServiceController extends BaseAdminController
     {
         $service = $this->service->find($id);
         if ($service->bookings()->exists()) {
-            toastr()->error('Đang có đơn hàng đặt dịch vụ này. Không thể xoá!');
+            toastr()->error('Đang có hợp đồng sử dụng dịch vụ này. Không thể xoá!');
         } else {
             $service->delete();
             toastr()->success(trans('site.message.delete_success'));

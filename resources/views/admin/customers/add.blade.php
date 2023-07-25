@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <label>{{ trans('site.customer.phone') }} </label>
                             <div class="input-group">
-                                <input type="text" id="example-input1-group1" name="phone" class="form-control"
+                                <input type="text" id="example-input1-group1" name="phone" class="form-control integerInput" maxlength="10"
                                        placeholder="{{ trans('site.customer.phone') }}"
                                        value="{{old('phone')}}">
                             </div>
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <label>{{ trans('site.customer.personal_id') }} </label>
                             <div class="input-group">
-                                <input type="text" id="example-input1-group1" name="personal_id" class="form-control"
+                                <input type="text" id="example-input1-group1" name="personal_id" class="form-control integerInput"
                                        placeholder="{{ trans('site.customer.personal_id') }}"
                                        value="{{ old('personal_id') }}">
                             </div>

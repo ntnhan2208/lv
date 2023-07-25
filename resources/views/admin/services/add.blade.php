@@ -32,7 +32,7 @@
                                     <label>{{ trans('site.service.price') }}</label>
                                     <div class="input-group">
                                         <input type="text" name="price"
-                                               class="form-control"
+                                               class="form-control integerInput"
                                                placeholder="{{ trans('site.service.price') }}"
                                                value="{{old('price')}}">
                                     </div>

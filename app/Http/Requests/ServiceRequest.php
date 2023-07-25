@@ -17,16 +17,16 @@ class ServiceRequest extends FormRequest
         switch ( $this->method()) {
             case 'POST':
                 return [
-                    'name' => ['required',Rule::unique('services')],
+                    'name' => ['required',Rule::unique('services'),'max:150'],
                     'description' => 'required',
-                    'price' => 'required|numeric',
+                    'price' => 'required|numeric|min:1',
                 ];
             case 'PATCH':
             case 'PUT':
                 return [
-                    'name' => ['required',Rule::unique('services')->ignore($this->service,'id')],
+                    'name' => ['required',Rule::unique('services')->ignore($this->service,'id'),'max:150'],
                     'description' => 'required',
-                    'price' => 'required|numeric',
+                    'price' => 'required|numeric|min:1',
                 ];
         }
     }
@@ -38,6 +38,8 @@ class ServiceRequest extends FormRequest
             'description.required' => trans('site.service.validation.description_not_empty'),
             'price.required' => trans('site.service.validation.price_not_empty'),
             'price.numeric' => trans('site.service.validation.price_not_numeric'),
+            'price.min' => 'Giá không hợp lệ',
+            'name.max'=>'Tên dịch vụ không được vượt quá 150 ký tự'
         ];
     }
 }

@@ -38,11 +38,11 @@ class EmployeeController extends BaseAdminController
 
     public function store(EmployeeRequest $request, Employee $employee)
     {
-        $this->syncRequest($request, $employee);
-        $this->admin->create($request->all());
+
         DB::beginTransaction();
         try {
-
+            $this->syncRequest($request, $employee);
+            $this->admin->create($request->all());
             DB::commit();
             toastr()->success(trans('site.message.add_success'));
             return redirect()->route('employees.index');

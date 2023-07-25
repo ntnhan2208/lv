@@ -65,9 +65,14 @@ class RoomController extends BaseAdminController
 
     public function update(RoomRequest $request, $id)
     {
+
         DB::beginTransaction();
         try {
             $room = $this->room->find($id);
+            if($room->booked==1){
+                toastr()->error('Căn hộ hiện không được thay đổi thông tin');
+                return back();
+            }
             $this->syncRequest($request, $room);
             DB::commit();
             toastr()->success(trans('site.message.update_success'));
@@ -84,8 +89,11 @@ class RoomController extends BaseAdminController
     {
         $room = $this->room->find($id);
         if ($room->booking()->exists()) {
-            toastr()->error('Đang có đơn hàng đặt Căn hộ này. Không thể xoá!');
-        } else {
+            toastr()->error('Đang có hợp đồng đặt Căn hộ này. Không thể xoá!');
+        }elseif ($room->appointment){
+            toastr()->error('Đang có lịch hẹn Căn hộ này. Không thể xoá!');
+        }
+        else {
             $room->delete();
             toastr()->success(trans('site.message.delete_success'));
         }
