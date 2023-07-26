@@ -74,7 +74,7 @@
                                             <div class="float-right">
                                                 <!-- Button trigger modal -->
                                                 <button class="btn btn-xs btn-primary mr-3" style="color: white"
-                                                   onclick="show({{$employee->id}})">
+                                                        onclick="show({{$employee->id}})">
                                                     Chi tiết tiền hoa hồng
                                                 </button>
                                             </div>

@@ -22,7 +22,7 @@ class BookingRequest extends FormRequest
                     'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10','max:10', Rule::unique('customers')],
                     'email' => ['required','email', Rule::unique('customers')],
                     'personal_id' => ['required','regex:/([0-9]{9})\b/','max:12', Rule::unique('customers')],
-                    'date_start' => 'required|after:yesterday',
+                    'date_start' => 'required|date|after:yesterday',
                     'date_end' => 'required|date|after:date_start',
                 ];
             case 'PATCH':
@@ -54,8 +54,8 @@ class BookingRequest extends FormRequest
             'personal_id.regex' => trans('site.customer.validation.personal_id_regex'),
             'personal_id.unique' => trans('site.customer.validation.personal_id_exist'),
             'personal_id.max' => trans('site.customer.validation.personal_id_max'),
-            'date_start.required' => trans('site.booking.validation.date_start_not_empty'),
-            'date_start.after' => trans('site.booking.validation.date_start_after'),
+            'date_start.required' => 'Ngày ký hợp đồng không được để trống',
+            'date_start.after' => 'Ngày ký hợp đồng không được chọn trước ngày hiện tại',
             'date_end.required' => trans('site.booking.validation.date_end_not_empty'),
             'date_end.after' => trans('site.booking.validation.date_end_after'),
         ];

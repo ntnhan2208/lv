@@ -14,7 +14,7 @@
                                     <label>{{ trans('site.booking.name') }} </label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="name" class="form-control"
-                                               value="{{$customer->name}}">
+                                               value="{{$customer->name}}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +36,7 @@
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="phone"
                                                class="form-control integerInput" maxlength="10"
-                                               value="{{$customer->phone}}">
+                                               value="{{$customer->phone}}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                                     <label>{{ trans('site.booking.email') }} </label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="email" class="form-control"
-                                               value="{{$customer->email}}">
+                                               value="{{$customer->email}}" readonly>
                                     </div>
                                 </div>
                             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\BookingRequest;
 use App\Http\Requests\ReBookingRequest;
 use App\Models\Appointment;
+use App\Models\Bill;
 use App\Models\Booking;
 use App\Models\Customer;
 use App\Models\Deposits;
@@ -12,6 +13,7 @@ use App\Models\Employee;
 use App\Models\EmployeesComission;
 use App\Models\Room;
 use App\Models\Service;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -64,7 +66,7 @@ class BookingController extends BaseAdminController
         return view('admin.bookings.add', compact('rooms', 'services'));
     }
 
-    public function store(Request $request, Booking $booking, Customer $customer)
+    public function store(BookingRequest $request, Booking $booking, Customer $customer)
     {
         DB::beginTransaction();
         try {
@@ -140,7 +142,7 @@ class BookingController extends BaseAdminController
         $booking->services()->detach();
         $booking->room->booked = 0;
         $booking->room->save();
-        if ($booking->bill->id) {
+        if ($booking->bill) {
             toastr()->error('Không thể xoá hợp đồng');
             return back();
         }
@@ -216,7 +218,6 @@ class BookingController extends BaseAdminController
 
         }
 
-
         // revert booked in room
         $current_booking = $this->booking->find($booking->id);
         $current_booking->services()->sync($request->input('services'));
@@ -245,5 +246,40 @@ class BookingController extends BaseAdminController
         $current_booking = $this->booking->find($booking->id);
         $current_booking->services()->sync($request->input('services'));
 
+    }
+
+    public function checkout($bookingId){
+//        kiểm tra hóa đơn mới nhất chưa
+        $lastestBill = Bill::where('booking_id', $bookingId)->orderBy('id','desc')->first();
+        $lastestMonthOfBill = Carbon::createFromFormat('Y-m-d', $lastestBill->month )->month;
+        $current = date('m');
+
+        $booking = Booking::find($bookingId);
+
+        $customer = $booking->customer()->find($booking->customer_id);
+        $current_room = $booking->room;
+        $check = true;
+        if($booking->date_end > date('Y-m-d')){
+            $check = false;
+        }
+        if((int)$current >  $lastestMonthOfBill){
+            toastr()->error('Vui lòng lập hóa đơn cho tháng hiện tại trước khi thanh lý hợp đồng','Thông báo',['timeOut'=>5000]);
+            return back();
+        }else{
+            if($lastestBill->status==0){
+                toastr()->error('Vui lòng thanh toán hóa đơn còn nợ trước khi thanh lý hợp đồng','Thông báo',['timeOut'=>5000]);
+                return back();
+            }
+        }
+        return view('admin.bookings.checkout', compact('check','booking','current_room','customer'));
+    }
+
+    public function confirmCheckout($id){
+        $booking = Booking::find($id);
+        $booking->update(['active'=>0]);
+        $booking->room->booked = 0;
+        $booking->room->save();
+        toastr()->error('Đã thanh lý hợp đồng');
+        return redirect()->route('bookings.index');
     }
 }

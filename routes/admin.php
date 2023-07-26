@@ -36,6 +36,9 @@ Route::namespace('admin')->group(function () {
             Route::get('/check', 'BookingController@checkDuplicateCustomer')->name('check');
             Route::get('/room-booked', 'BookingController@roomBooked')->name('room-booked');
 
+            Route::get('/checkout/{id}', 'BookingController@checkout')->name('room-checkout');
+            Route::put('/confirm-checkout/{id}', 'BookingController@confirmCheckout')->name('room-confirm-checkout');
+
             Route::resource('/customers', 'CustomerController');
             Route::get('/booking/customer/{id}', 'BookingController@customerBooked')->name('customer-booked');
             Route::resource('/rooms', 'RoomController');

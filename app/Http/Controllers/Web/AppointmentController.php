@@ -20,6 +20,7 @@ class AppointmentController extends BaseFEController
 
     public function store(Request $request, Appointment $appointment)
     {
+
         //trùng sđt và căn hộ
         $currentAppointment = $this->appointment->where('phone',$request->phone)->where('room_id',$request->room_id)->first();
         if ($currentAppointment){
@@ -30,6 +31,9 @@ class AppointmentController extends BaseFEController
         }
         if($request->phone==null){
             return response()->json(['error' => 'Số điện thoại không được để trống'], 200);
+        }
+        if($request->date < date('Y-m-d')){
+            return response()->json(['error' => 'Ngày hẹn không hợp lệ'], 200);
         }
         DB::beginTransaction();
         try {

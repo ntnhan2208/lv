@@ -42,6 +42,10 @@
                                                    href="{{ route('bill-index',$booking->room->id) }}">
                                                     <i class="ti-pencil-alt mr-2"></i>Hóa đơn
                                                 </a>
+                                                <a class="btn btn-xs btn-secondary mr-3"
+                                                   href="{{ route('room-checkout',$booking->id) }}">
+                                                    <i class="ti-pencil-alt mr-2"></i>Thanh lý
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>

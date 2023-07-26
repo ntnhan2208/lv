@@ -22,7 +22,7 @@ class AppointmentRequest extends FormRequest
         return[
             'name' 	=>  ['required','max:150'],
             'phone'    	=>  ['required'],
-            'date' => ['required'],
+            'date' => 'required|date|after:yesterday',
         ];
     }
 
@@ -33,6 +33,7 @@ class AppointmentRequest extends FormRequest
             'name.max' 	=> 'Tên khách hàng không được vượt 150 ký tự',
             'phone.required' 	=> 'Số điện thoại hàng không được để trống',
             'date.required' 	=> 'Ngày hẹn không được để trống',
+            'date.after' 	=> 'Ngày hẹn không được chọn trước ngày hiện tại',
         ];
     }
 }

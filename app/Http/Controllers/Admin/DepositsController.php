@@ -40,10 +40,19 @@ class DepositsController extends BaseAdminController
 
     public function store(DepositsRequest $request, deposits $deposits)
     {
-        if($request->type == 0 && $request->price > $request->total){
-            toastr()->error(trans('Số tiền cọc giữ chỗ không được lớn hơn số tiền cần cọc Căn hộ'));
+        if($request->price > $request->total){
+            toastr()->error(trans('Số tiền cọc không được lớn hơn số tiền cần cọc Căn hộ'));
             return back();
         }
+        if($request->type == 0 && $request->price < ($request->total/2)){
+            toastr()->error(trans('Số tiền cọc giữ chỗ phải từ 50% số tiền cần cọc Căn hộ'));
+            return back();
+        }
+        if($request->type == 1 && $request->price <> ($request->total/2)){
+            toastr()->error(trans('Số tiền cọc thuê căn hộ phải bằng tiền cần cọc Căn hộ'));
+            return back();
+        }
+
         DB::beginTransaction();
         try {
             $this->syncRequest($request, $deposits);
@@ -89,6 +98,10 @@ class DepositsController extends BaseAdminController
     public function destroy($id)
     {
         $deposits = $this->deposits->find($id);
+        if($deposits->status == 1){
+            toastr()->error('Không thể xóa đặt cọc vì đã có hợp đồng');
+            return redirect()->route('deposits.index');
+        }
         $deposits->delete();
         toastr()->success(trans('site.message.delete_success'));
         return redirect()->route('deposits.index');

@@ -21,8 +21,8 @@ class DepositsRequest extends FormRequest
         return[
             'name' 	=>  ['required'],
             'phone'    	=>  ['required'],
-            'date' => ['required'],
-            'date_start' => ['required'],
+            'date' => 'required|date|after:yesterday',
+            'date_start' => 'required|date|after:yesterday',
             'price' => ['required'],
         ];
     }
@@ -32,9 +32,12 @@ class DepositsRequest extends FormRequest
         return [
             'name.required' 	=> 'Tên khách hàng không được để trống',
             'phone.required' 	=> 'Số điện thoại hàng không được để trống',
-            'date.required' 	=> 'Ngày hẹn không được để trống',
+            'date.required' 	=> 'Ngày nhận cọc không được để trống',
+            'date.after' 	=> 'Ngày nhận cọc phải từ ngày hiện tại',
             'date_start.required' 	=> 'Ngày dự kiến dọn vào không được để trống',
+            'date_start.after' 	=> 'Ngày dự kiến dọn vào phải từ ngày hiện tại',
             'price.required' 	=> 'Số tiền cọc không được để trống',
+
         ];
     }
 }
