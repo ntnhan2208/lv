@@ -19,12 +19,19 @@ class ServiceController extends BaseAdminController
 
     public function index()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
+
         $services = $this->service->all();
         return view('admin.services.index', compact('services'));
     }
 
     public function create()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         return view('admin.services.add');
     }
 
@@ -51,6 +58,9 @@ class ServiceController extends BaseAdminController
 
     public function edit($id)
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $service = $this->service->find($id);
         if ($service) {
             return view('admin.services.edit', compact('service'));

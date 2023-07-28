@@ -47,7 +47,7 @@
                                                 <div class="form-group">
                                                     <label>Số điện cũ</label>
                                                     <div class="input-group">
-                                                        <input class="form-control" type="text" id="old_electric" name="old_electric"
+                                                        <input class="form-control integerInput" type="text" id="old_electric" name="old_electric"
                                                                value="{{$oldElectric}}">
                                                     </div>
                                                 </div>
@@ -56,7 +56,7 @@
                                                 <div class="form-group">
                                                     <label>Số điện mới</label>
                                                     <div class="input-group">
-                                                        <input class="form-control" type="text" id="new_electric" name="new_electric"
+                                                        <input class="form-control integerInput" type="text" id="new_electric" name="new_electric"
                                                                value=" ">
                                                     </div>
                                                 </div>
@@ -83,7 +83,7 @@
                                                 <div class="form-group">
                                                     <label>Số nước cũ</label>
                                                     <div class="input-group">
-                                                        <input class="form-control" type="text" id="old_water" name="old_water" value="{{$oldWater}}">
+                                                        <input class="form-control integerInput" type="text" id="old_water" name="old_water" value="{{$oldWater}}" integerInput>
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,7 +91,7 @@
                                                 <div class="form-group">
                                                     <label>Số nước mới</label>
                                                     <div class="input-group">
-                                                        <input class="form-control" type="text" id="new_water" name="new_water">
+                                                        <input class="form-control integerInput" type="text" id="new_water" name="new_water">
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,7 +99,7 @@
                                                 <div class="form-group">
                                                     <label style="font-weight: bold">Tiền nước</label>
                                                     <div class="input-group">
-                                                        <input class="form-control" type="text" id="water"
+                                                        <input class="form-control integerInput" type="text" id="water"
                                                                value=" " readonly>
                                                         <input class="form-control" type="text" id="water-input" name="water"
                                                                hidden readonly>
@@ -123,7 +123,7 @@
                                             <div class="form-group">
                                                 <label>{{$service->name}}</label>
                                                 <div class="input-group">
-                                                    <input class="form-control" onchange="priceService({{$service->id}})" type="text" id="service-{{$service->id}}"
+                                                    <input class="form-control integerInput" onchange="priceService({{$service->id}})" type="text" id="service-{{$service->id}}"
                                                            value=" ">
                                                 </div>
                                             </div>
@@ -238,13 +238,18 @@
             e.preventDefault();
             var oldElectric = $('#old_electric').val();
             var newElectric = $('#new_electric').val();
+            console.log(newElectric , oldElectric)
             var electricPrice = $('#electric-price').val();
             var totalPrice = (newElectric-oldElectric)*electricPrice;
             $("#electric").val(numberToCurrency(totalPrice));
             $("#electric-input").val(totalPrice);
-
             total();
-
+            if(newElectric*1 <= oldElectric*1){
+                alert('Số điện mới phải lớn hơn số điện cũ');
+                $("#electric").val('');
+                $('#new_electric').val('');
+                $("#total_service").val('');
+            }
 
         });
 
@@ -257,8 +262,14 @@
             var totalPrice = (newWater-oldWater)*waterPrice;
             $("#water").val(numberToCurrency(totalPrice));
             $("#water-input").val(totalPrice);
-
             total();
+            if(newWater*1 <= oldWater*1){
+                alert('Số điện mới phải lớn hơn số điện cũ');
+                $("#water").val('');
+                $('#new_water').val('');
+                $("#total_service").val('');
+            }
+
 
         });
 
@@ -289,6 +300,13 @@
            $("#total-input").val(room*1+electric*1 + water*1 +service*1 + indebt*1);
            $("#total").val(numberToCurrency((room*1+electric*1 + water*1 +service*1 + indebt*1)));
        }
+
+       $('#date_start').on('change', function (){
+           if($('#date_start').val() != new Date().toISOString().split('T')[0].slice(0,7)){
+               alert('Tháng thu tiền thuê phải là tháng hiện tại');
+               $('#date_start').val('');
+           }
+       })
 
         function currencyToNumber(currency) {
             return Number(currency.replace(/[^0-9\.]+/g, ""));

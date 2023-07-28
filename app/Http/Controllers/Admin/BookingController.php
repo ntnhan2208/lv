@@ -35,13 +35,18 @@ class BookingController extends BaseAdminController
 
     public function index()
     {
-
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $bookings = $this->booking->where('active', 1)->get();
         return view('admin.bookings.index', compact('bookings'));
     }
 
     public function roomBooked()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $bookings = $this->booking->where('active', 1)->get();
         return view('admin.bookings.booked', compact('bookings'));
     }
@@ -56,6 +61,9 @@ class BookingController extends BaseAdminController
 
     public function create()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $checkEmptyRoom = $this->room->checkEmptyRoom();
         if(!$checkEmptyRoom){
             toastr()->error(trans('Đã hết Căn hộ trống'));
@@ -102,6 +110,9 @@ class BookingController extends BaseAdminController
 
     public function edit($id)
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $booking = $this->booking->find($id);
         $customer = $booking->customer()->find($booking->customer_id);
         $current_room = $booking->room;
@@ -155,13 +166,20 @@ class BookingController extends BaseAdminController
     public function syncRequest($request, Booking $booking, Customer $customer)
     {
         // create new customer
-        $customer->name = $request->input('name');
-        $customer->email = $request->input('email');
-        $customer->phone = $request->input('phone');
-        $customer->room_id = $request->input('room_id');
-        $customer->personal_id = $request->input('personal_id');
-        $customer->admin_id = Auth::user()->id;
-        $customer->save();
+        $customerOld = Customer::where('personal_id',$request->input('personal_id'))->first();
+        if($customerOld){
+            $customerId = $customerOld->id;
+        }else{
+            $customer->name = $request->input('name');
+            $customer->email = $request->input('email');
+            $customer->phone = $request->input('phone');
+            $customer->room_id = $request->input('room_id');
+            $customer->personal_id = $request->input('personal_id');
+            $customer->admin_id = Auth::user()->id;
+            $customer->save();
+            $customerId = $customer->id;
+        }
+
 
         // create booking
         $booking->request = $request->input('request');
@@ -173,7 +191,7 @@ class BookingController extends BaseAdminController
         $booking->deposits = $request->input('deposits');
         $booking->total_price = $request->input('total_price');
         $booking->paid = $request->input('paid');
-        $booking->customer_id = $customer->id;
+        $booking->customer_id = $customerId;
         $booking->admin_id = Auth::user()->id;
         $booking->save();
 
@@ -181,8 +199,10 @@ class BookingController extends BaseAdminController
 
         $phone = $this->customer->find($booking->customer_id)->phone;
 
-        // lịch hẹn
+        // lịch hẹn của căn hộ được ký hđ
         $appointment = $this->appointment->where(['phone' => $phone, 'room_id' => $booking->room_id])->first();
+
+        //lịch hẹn liên quan tới căn hộ đã được ký hđ -> hủy hẹn
         $otherAppointment = $this->appointment->where('room_id', $booking->room_id)->where('phone','<>',$phone)->get();
         foreach ($otherAppointment as $other){
             $this->appointment->where(['phone' => $other->phone, 'room_id' => $booking->room_id])->update(['status'=>4]) ;
@@ -194,6 +214,7 @@ class BookingController extends BaseAdminController
         foreach ($otherDepositses as $otherDeposits){
             $this->deposits->where(['phone' => $otherDeposits->phone, 'room_id' => $booking->room_id])->update(['status'=>1]) ;
         }
+
         $deposits = $this->deposits->where(['phone' => $phone, 'room_id' => $booking->room_id])->first();
         if($deposits){
             $this->deposits->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>1]) ;
@@ -201,7 +222,7 @@ class BookingController extends BaseAdminController
 
 
         if($appointment){
-            $this->appointment->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>3]) ;
+            $this->appointment->where(['phone' => $phone, 'room_id' => $booking->room_id])->update(['status'=>3]);
             //hoa hồng
             $employeeOfBooking = $appointment->employee_id;
             $employee = $this->employee->find($appointment->employee_id);
@@ -215,7 +236,6 @@ class BookingController extends BaseAdminController
                     ]
                 );
             }
-
         }
 
         // revert booked in room

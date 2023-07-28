@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Customer;
+use App\Models\Deposits;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -18,7 +19,7 @@ class SendEmail implements ShouldQueue
     protected $data;
     protected $customer;
 
-    public function __construct($data, Customer $customer)
+    public function __construct($data,Deposits $customer)
     {
         $this->data = $data;
         $this->customer = $customer;

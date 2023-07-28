@@ -23,6 +23,7 @@ class DepositsRequest extends FormRequest
             'phone'    	=>  ['required'],
             'date' => 'required|date|after:yesterday',
             'date_start' => 'required|date|after:yesterday',
+            'email' => ['required', 'email'],
             'price' => ['required'],
         ];
     }
@@ -31,6 +32,8 @@ class DepositsRequest extends FormRequest
     {
         return [
             'name.required' 	=> 'Tên khách hàng không được để trống',
+            'email.required' 	=> 'Email khách hàng không được để trống',
+            'email.email' 	=> 'Email khách hàng phải đúng định dạng',
             'phone.required' 	=> 'Số điện thoại hàng không được để trống',
             'date.required' 	=> 'Ngày nhận cọc không được để trống',
             'date.after' 	=> 'Ngày nhận cọc phải từ ngày hiện tại',

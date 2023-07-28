@@ -19,6 +19,9 @@ class TypeController extends BaseAdminController
 
     public function index()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $types = $this->type->all();
         return view('admin.types.index', compact('types'));
     }
@@ -26,6 +29,9 @@ class TypeController extends BaseAdminController
 
     public function create()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         return view('admin.types.add');
     }
 
@@ -48,6 +54,9 @@ class TypeController extends BaseAdminController
 
     public function edit($id)
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $type = $this->type->find($id);
         if ($type) {
             return view('admin.types.edit', compact('type'));

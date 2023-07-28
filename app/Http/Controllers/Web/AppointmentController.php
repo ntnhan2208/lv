@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AppointmentRequest;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\Employee;
@@ -20,9 +21,12 @@ class AppointmentController extends BaseFEController
 
     public function store(Request $request, Appointment $appointment)
     {
-
         //trùng sđt và căn hộ
         $currentAppointment = $this->appointment->where('phone',$request->phone)->where('room_id',$request->room_id)->first();
+        $room = Room::find($request->room_id);
+        if($room && $room->booked == 1){
+            return response()->json(['error' => 'Căn hộ đã có người đặt!'], 200);
+        }
         if ($currentAppointment){
             return response()->json(['error' => 'Rất tiếc, đã xảy ra lỗi!'], 200);
         }
@@ -35,6 +39,7 @@ class AppointmentController extends BaseFEController
         if($request->date < date('Y-m-d')){
             return response()->json(['error' => 'Ngày hẹn không hợp lệ'], 200);
         }
+
         DB::beginTransaction();
         try {
             $this->syncRequest($request, $appointment);

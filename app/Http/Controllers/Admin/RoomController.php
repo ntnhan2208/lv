@@ -21,6 +21,9 @@ class RoomController extends BaseAdminController
 
     public function index()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $rooms = $this->room->all();
         $readyRooms = $this->room->where('is_enabled', 1)->where('booked', 0)->get();
         $bookedRooms = $this->room->where('is_enabled', 1)->where('booked', 1)->get();
@@ -30,6 +33,9 @@ class RoomController extends BaseAdminController
 
     public function create()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $types = $this->type->all();
         return view('admin.rooms.add', compact('types'));
     }
@@ -52,6 +58,9 @@ class RoomController extends BaseAdminController
 
     public function edit($id)
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $room = $this->room->find($id);
         $types = $this->type->all();
         if ($room) {

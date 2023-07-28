@@ -19,9 +19,9 @@ class BookingRequest extends FormRequest
             case 'POST':
                 return [
                     'name' => ['required','max:150'],
-                    'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10','max:10', Rule::unique('customers')],
-                    'email' => ['required','email', Rule::unique('customers')],
-                    'personal_id' => ['required','regex:/([0-9]{9})\b/','max:12', Rule::unique('customers')],
+                    'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','min:10','max:10'],
+                    'email' => ['required','email'],
+                    'personal_id' => ['required','regex:/([0-9]{9})\b/','max:12'],
                     'date_start' => 'required|date|after:yesterday',
                     'date_end' => 'required|date|after:date_start',
                 ];

@@ -154,8 +154,6 @@
         function show(id){
             $('#myModal-'+id).modal('show');
         }
-
-
         function status(id){
             $.ajaxSetup({
                 headers: {

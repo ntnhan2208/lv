@@ -21,7 +21,7 @@ class MailNotify extends Mailable
     public function build()
     {
         return $this
-            ->view('web.mail')
-            ->subject('ĐẶT Căn hộ THÀNH CÔNG');
+            ->view('admin.mail')
+            ->subject('Thông báo hủy cọc');
     }
 }

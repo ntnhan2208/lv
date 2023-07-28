@@ -10,6 +10,7 @@ use App\Models\Room;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
 
 class DepositsController extends BaseAdminController
 {
@@ -23,12 +24,19 @@ class DepositsController extends BaseAdminController
 
     public function index()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $depositses = $this->deposits->all();
         return view('admin.deposits.index', compact('depositses'));
     }
 
     public function create()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
+
         $checkEmptyRoom = $this->room->checkEmptyRoom();
         if(!$checkEmptyRoom){
             toastr()->error(trans('Đã hết Căn hộ trống'));
@@ -69,6 +77,10 @@ class DepositsController extends BaseAdminController
 
     public function edit($id)
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
+
         $deposits = $this->deposits->find($id);
         $rooms = $this->room->where('id', $deposits->room_id)->get();
         if ($deposits) {
@@ -129,6 +141,7 @@ class DepositsController extends BaseAdminController
         $deposits->type = $request->input('type');
         $deposits->note = $request->input('note');
         $deposits->price = $request->input('price');
+        $deposits->email = $request->input('email');
         $deposits->room_id = $request->input('room_id');
         $deposits->status = $request->input('status') <> 0 ? $request->input('status') : 0;
         $deposits->save();

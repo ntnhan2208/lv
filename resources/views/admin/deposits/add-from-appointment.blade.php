@@ -7,7 +7,7 @@
                     <form action="{{ route('deposits.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Tên khách hàng</label>
                                     <div class="input-group">
@@ -18,7 +18,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Số điện thoại</label>
                                     <div class="input-group">
@@ -29,7 +29,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Căn hộ cọc</label>
                                     <select class="custom-select custom-select-sm form-control form-control-sm"
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Ngày nhận cọc</label>
                                     <div class="input-group">
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Ngày dự kiến vào ở</label>
                                     <div class="input-group">
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Ghi chú</label>
                                     <div class="input-group">
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Loại cọc</label>
                                     <select class="custom-select custom-select-sm form-control form-control-sm"
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Số tiền cần đặt cọc của Căn hộ</label>
                                     <div class="input-group">
@@ -96,16 +96,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Số tiền cọc</label>
-                                    <div class="input-group">
+                                    <div class="input-group integerInput">
                                         <input class="form-control" type="text" name="price"
                                                value="{{old('price')}}">
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <div class="input-group">
+                                        <input type="text" id="example-input1-group1" name="email"
+                                               class="form-control"
+                                               placeholder="Email"
+                                               value="{{old('email')}}">
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                         <button type="submit" class="btn btn-primary px-4 mb-3 mt-2">

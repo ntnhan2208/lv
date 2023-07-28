@@ -24,7 +24,6 @@ class AppointmentController extends BaseAdminController
 
     public function index()
     {
-
         $this->checkAppointment();
         if (Auth::user()->role<>null){
             $employeeId = $this->employee->where('personal_id', Auth::user()->personal_id)->first()->id;

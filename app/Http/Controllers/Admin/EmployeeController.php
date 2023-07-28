@@ -26,12 +26,18 @@ class EmployeeController extends BaseAdminController
 
     public function index()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $employees = $this->employee->search()->get();
         return view('admin.employees.index', compact('employees'));
     }
 
     public function create()
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         return view('admin.employees.add');
     }
 
@@ -57,6 +63,9 @@ class EmployeeController extends BaseAdminController
 
     public function edit($id)
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $employee = $this->employee->find($id);
         if ($employee) {
             return view('admin.employees.edit', compact('employee'));
@@ -123,13 +132,13 @@ class EmployeeController extends BaseAdminController
     public function commission($employeeId){
         $commission = EmployeesComission::where('employee_id',$employeeId)->get();
         return view('admin.employees.commission', compact('commission'));
-
     }
 
     public function showReadyRoom(){
         $readyRooms = Room::where('is_enabled', 1)->where('booked', 0)->get();
         return view('admin.employees.room', compact('readyRooms'));
     }
+
     public function changeStatus(Request $request){
         $commission = EmployeesComission::find($request->id);
         if($commission){

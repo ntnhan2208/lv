@@ -8,6 +8,7 @@ use App\Models\Bill;
 use App\Models\Booking;
 use App\Models\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class BillController extends BaseAdminController
@@ -24,6 +25,9 @@ class BillController extends BaseAdminController
 
     public function index($id)
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $room = $this->room->find($id);
         $bookingOfRoom = $room->booking->id;
         $bills = $this->bill->where('booking_id', $bookingOfRoom)->get();
@@ -33,6 +37,9 @@ class BillController extends BaseAdminController
 
     public function create($id)
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $room = $this->room->find($id);
         $bookingOfRoom = $this->booking->where('room_id',$id)->first();
         $inDebt = $bookingOfRoom->paid == 0 ? $bookingOfRoom->total_price : 0; //nợ của hợp đồng
@@ -72,6 +79,9 @@ class BillController extends BaseAdminController
 
     public function edit($id)
     {
+        if (Auth::user()->role==1){
+            return redirect()->route('dashboard');
+        }
         $bill= $this->bill->find($id);
         $room = $bill->booking->room_id;
         $bookingOfRoom = $this->booking->where('room_id',$room)->first();

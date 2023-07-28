@@ -21,6 +21,7 @@ class CreateDepositsTable extends Migration
             $table->date('date_start');
             $table->decimal('price', 9, 0);
             $table->integer('type');
+            $table->string('email');
             $table->text('note')->nullable();
             $table->integer('status');
             $table->foreignId('room_id')->unsigned()->nullable()->constrained('rooms');

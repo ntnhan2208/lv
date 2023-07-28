@@ -18,7 +18,8 @@ class Deposits extends Model
         'type',
         'note',
         'type',
-        'status'
+        'status',
+        'email'
     ];
     public function room()
     {

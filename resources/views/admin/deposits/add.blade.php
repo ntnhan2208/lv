@@ -7,7 +7,7 @@
                     <form action="{{ route('deposits.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Tên khách hàng</label>
                                     <div class="input-group">
@@ -18,7 +18,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Số điện thoại</label>
                                     <div class="input-group">
@@ -29,7 +29,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <div class="input-group">
+                                        <input type="text" id="example-input1-group1" name="email"
+                                               class="form-control"
+                                               placeholder="Email"
+                                               value="{{old('email')}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Căn hộ cọc</label>
                                     <select class="custom-select custom-select-sm form-control form-control-sm" id="room"
