@@ -24,6 +24,8 @@ class AppointmentController extends BaseAdminController
 
     public function index()
     {
+
+        $this->checkAppointment();
         if (Auth::user()->role<>null){
             $employeeId = $this->employee->where('personal_id', Auth::user()->personal_id)->first()->id;
         }
@@ -31,6 +33,15 @@ class AppointmentController extends BaseAdminController
         return view('admin.appointments.index', compact('appointments'));
     }
 
+
+    public function checkAppointment(){
+        $appointments = Appointment::all();
+        foreach ($appointments as $appointment){
+            if ($appointment->status == 0 && $appointment->date < date('Y-m-d')){
+                $appointment->update(['status'=>4]);
+            }
+        }
+    }
     public function create()
     {
         $checkEmptyRoom = $this->room->checkEmptyRoom();

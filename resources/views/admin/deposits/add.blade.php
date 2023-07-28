@@ -23,7 +23,7 @@
                                     <label>Số điện thoại</label>
                                     <div class="input-group">
                                         <input type="text" id="example-input1-group1" name="phone"
-                                               class="form-control"
+                                               class="form-control integerInput"
                                                placeholder="Số điện thoại"
                                                value="{{old('phone')}}">
                                     </div>

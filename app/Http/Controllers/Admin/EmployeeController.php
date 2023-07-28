@@ -96,7 +96,7 @@ class EmployeeController extends BaseAdminController
     public function destroy($id)
     {
         $employee = $this->employee->find($id);
-        if($employee->appointment->exists()){
+        if($employee->appointment){
             toastr()->error('Nhân viên môi giới có lịch hẹn, không thể xóa');
             return redirect()->route('employees.index');
         }else{

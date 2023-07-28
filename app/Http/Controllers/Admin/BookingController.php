@@ -47,9 +47,9 @@ class BookingController extends BaseAdminController
     }
     public function customerBooked($id)
     {
-
         $room = $this->room->find($id);
-        $customers = $room->customer()->get();
+        $activeBooking = $room->booking->where('active',1)->pluck('customer_id')->toArray();
+        $customers = Customer::whereIn('id',$activeBooking)->get();
         return view('admin.bookings.customer.index', compact('customers','room'));
     }
 
@@ -250,10 +250,13 @@ class BookingController extends BaseAdminController
 
     public function checkout($bookingId){
 //        kiểm tra hóa đơn mới nhất chưa
+        $lastestMonthOfBill = 0;
         $lastestBill = Bill::where('booking_id', $bookingId)->orderBy('id','desc')->first();
-        $lastestMonthOfBill = Carbon::createFromFormat('Y-m-d', $lastestBill->month )->month;
-        $current = date('m');
+        if($lastestBill){
+            $lastestMonthOfBill = Carbon::createFromFormat('Y-m-d', $lastestBill->month )->month;
+        }
 
+        $current = date('m');
         $booking = Booking::find($bookingId);
 
         $customer = $booking->customer()->find($booking->customer_id);
@@ -262,7 +265,7 @@ class BookingController extends BaseAdminController
         if($booking->date_end > date('Y-m-d')){
             $check = false;
         }
-        if((int)$current >  $lastestMonthOfBill){
+        if($lastestMonthOfBill == 0 || (int)$current >  $lastestMonthOfBill){
             toastr()->error('Vui lòng lập hóa đơn cho tháng hiện tại trước khi thanh lý hợp đồng','Thông báo',['timeOut'=>5000]);
             return back();
         }else{

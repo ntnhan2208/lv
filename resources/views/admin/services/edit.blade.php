@@ -39,8 +39,11 @@
                                     <select name="unit_price"
                                             class="custom-select custom-select-sm form-control form-control-sm" {{(in_array($service->id,[1,2])||$service->bookings()->exists()) ? "style=pointer-events:none" : ''}}>
                                         @foreach(config('system.unit_price') as $k => $v)
+                                            @if(in_array($service->id,[1,2]))
+                                                <option value="{{ $k }}" {{ $service->unit_price == $k ? 'selected':''}}>{{ $v }}</option>
+                                            @endif
                                             @if($k>1)
-                                            <option value="{{ $k }}" {{ old('unit_price') == $k ? 'selected':''}}>{{ $v }}</option>
+                                            <option value="{{ $k }}" {{ $service->unit_price == $k ? 'selected':''}}>{{ $v }}</option>
                                             @endif
                                         @endforeach
                                     </select>
